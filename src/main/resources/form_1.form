@@ -1,0 +1,67 @@
+{
+  "components": [
+    {
+      "components": [
+        {
+          "components": [
+            {
+              "text": "#### {{this.subject}}\n##### Summary {{this.summary}}\n- Number of session {{this.numberOfSession}}   Fee {{response[1].fee}}",
+              "label": "Text view",
+              "type": "text",
+              "layout": {
+                "row": "Row_04g8nhb",
+                "columns": null
+              },
+              "id": "Field_065hosi"
+            }
+          ],
+          "showOutline": true,
+          "label": "",
+          "type": "group",
+          "layout": {
+            "row": "Row_1uiznl1",
+            "columns": null
+          },
+          "id": "Field_0stalss",
+          "path": "this",
+          "verticalAlignment": "end",
+          "conditional": {
+            "hide": "=checkbox_approve"
+          }
+        }
+      ],
+      "showOutline": true,
+      "isRepeating": true,
+      "allowAddRemove": true,
+      "defaultRepetitions": 1,
+      "label": "List of Programs",
+      "type": "dynamiclist",
+      "layout": {
+        "row": "Row_0dlp488",
+        "columns": null
+      },
+      "id": "Field_17qmo7s",
+      "path": "response",
+      "verticalAlignment": "start"
+    },
+    {
+      "label": "Approve",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_1wse41k",
+        "columns": null
+      },
+      "id": "Field_0v2t1s6",
+      "key": "checkbox_approve"
+    }
+  ],
+  "type": "default",
+  "id": "Form_register_coache",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.5.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.23.0"
+  },
+  "schemaVersion": 16
+}

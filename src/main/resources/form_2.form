@@ -1,0 +1,33 @@
+{
+  "components": [
+    {
+      "values": [
+        {
+          "label": "Yes",
+          "value": "yes"
+        },
+        {
+          "label": "No",
+          "value": "no"
+        }
+      ],
+      "label": "Is this your first training session?",
+      "type": "radio",
+      "layout": {
+        "row": "Row_13kzyo3",
+        "columns": null
+      },
+      "id": "Field_06rd1k5",
+      "key": "assesment"
+    }
+  ],
+  "type": "default",
+  "id": "Form_assesment",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.5.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.22.0"
+  },
+  "schemaVersion": 16
+}
