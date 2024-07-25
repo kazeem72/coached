@@ -21,6 +21,8 @@ public class Session {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    private Boolean manyToOne;
+    private String sessionOwner;
     private LocalDate scheduledDate;
     private LocalDate actualDate;
 

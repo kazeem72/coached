@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $('#previewForm').submit(function(event) {
+                event.preventDefault();
+
+                var $form = $(this);
+                var $target = $($form.attr('data-target'));
+
+                alert($target);
+
+                var form_data = $form.serialize();
+
+                alert(form_data);
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: $form.serialize(),
+                    success: function(response) {
+                        alert(response);
+                        $target.html(response);
+                    },
+                    error: function(error) {
+                        // Handle the error
+                    }
+                });
+            });
+/*
+            $('#Preview').on('click',function(){
+                $('.modal-body').load('/coached/bookingPreview',function(){
+                    //$('#bookModal').modal("show");
+                });
+            });
+*/
+
+        });
+    </script>
+</head>
+<body>
+<form id="previewForm"  method="POST"  th:action="@{/bookingPreview}"  data-target="#booking-modal" th:object="${booking}">
+    <fieldset>
+    <div class="modal-body" id="booking-modal">
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div style="padding:20px; height: 100%; width: 100%;">
+        <h1 style="font-size: 16px;  font-weight: 700;">Setup Meeting</h1>
+        <p style="font-size: 10px; color: #646E82; font-weight: 500;">You can only book a coach for a minimum of 3 sessions and maximum of 12 session at a time</p>
+
+
+
+        <div class="row" style="--bs-gutter-x: 1rem">
+
+            <div class="col-6 ">
+                <h4 style="font-size: 12px; color: #646E82; font-weight: 500;">1. Meeting Type</h4>
+                <select th:field="${booking.meetingType}"  class="form-select" aria-label="Meeting Type" style="font-size: 12px;">
+                    <option th:value="0" selected>Select Meeting Type</option>
+                    <option th:value="1" >One-on-one</option>
+                    <option th:value="1" >Group</option>
+                </select>
+            </div>
+
+            <div class="col-6">
+                <h4 style="font-size: 12px; color: #646E82; font-weight: 500;">2. Session Frequency</h4>
+                <input th:field="${booking.frequency}" type="number"  class="form-control" />
+                <p style="color: red; font-size: 11px;">All Sessions expires on August 31, 2024</p>
+            </div>
+        </div>
+
+
+
+
+        <hr>
+        <div class="row" style="--bs-gutter-x: 1rem">
+            <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                <h4 style="font-size: 12px; color: #646E82; font-weight: 500;">3. Coach</h4>
+                <p style="font-size: 9px;">Add coachees from Onboarded Employees</p>
+                <input style="font-size: 12px;" class="form-control" id="myInput" type="text" placeholder="Search..">
+                <br>
+                <ul class="list-group" th:field="${booking.employeeList}">
+                    <li  class="list-group-item d-flex justify-content-between align-items-start">
+                        <div id="listItem1">
+                            <div class="ms-2 me-auto">
+                                <div class="profile-card">
+                                    <div class="profile-pic">
+                                        <img src="https://github.com/mdo.png" alt="Profile Picture">
+                                    </div>
+                                    <div class="profile-info" style="margin-left: -10px;">
+                                        <div class="username" style="font-size: 9px;">Ogundipe Damilola</div>
+                                        <div class="email" style="font-size: 8px;">ogundipedamilola.funmi@gmail.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span><button class="addItem1" type="button" style="color: red; text-align: center;border: none;border-radius: 6px; background-color: white; border: 1px solid #EBEBEB;padding: 3px;" >Add</button></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div id="listItem2">
+                            <div class="ms-2 me-auto">
+                                <div class="profile-card">
+                                    <div class="profile-pic">
+                                        <img src="https://justjava2.share.zrok.io/images/woman pic.png" alt="Profile Picture">
+                                    </div>
+                                    <div class="profile-info" style="margin-left: -10px;">
+                                        <div class="username" style="font-size: 9px;">Ogunise Damila</div>
+                                        <div class="email" style="font-size: 8px;">ogunisedami.@gmail.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span><button class="addItem2" type="button" style="color: red; text-align: center;border: none;border-radius: 6px; background-color: white; border: 1px solid #EBEBEB;padding: 3px;" >Add</button></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div id="listItem3">
+                            <div class="ms-2 me-auto">
+                                <div class="profile-card">
+                                    <div class="profile-pic">
+                                        <img src="https://justjava2.share.zrok.io/images/Rectangle 1781.png" alt="Profile Picture">
+                                    </div>
+                                    <div class="profile-info" style="margin-left: -10px;">
+                                        <div class="username" style="font-size: 9px;">Timothy francis</div>
+                                        <div class="email" style="font-size: 8px;">timotyfrancis24@gmail.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span><button class="addItem3" type="button" style="color: red; text-align: center;border: none;border-radius: 6px; background-color: white; border: 1px solid #EBEBEB;padding: 3px;" >Add</button></span>
+                    </li>
+                    <div style="display: none;">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div id="listItem4">
+                                <div class="ms-2 me-auto">
+                                    <div class="profile-card">
+                                        <div class="profile-pic">
+                                            <img src="https://justjava2.share.zrok.io/images/Rectangle 1782.png" alt="Profile Picture">
+                                        </div>
+                                        <div class="profile-info" style="margin-left: -10px;">
+                                            <div class="username" style="font-size: 9px;">John Doe</div>
+                                            <div class="email" style="font-size: 8px;">johndoe4@gmail.com</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <span><button class="addItem4" type="button" style="color: red; text-align: center;border: none;border-radius: 6px; background-color: white; border: 1px solid #EBEBEB;padding: 3px;" >Add</button></span>
+                        </li>
+                    </div>
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div id="listItem5">
+                            <div class="ms-2 me-auto">
+                                <div class="profile-card">
+                                    <div class="profile-pic">
+                                        <img src="https://github.com/mdo.png" alt="Profile Picture">
+                                    </div>
+                                    <div class="profile-info" style="margin-left: -10px;">
+                                        <div class="username" style="font-size: 9px;">danny francis</div>
+                                        <div class="email" style="font-size: 8px;">dannyfrancis27@gmail.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <span><button class="addItem5" type="button" style="color: red; text-align: center;border: none;border-radius: 6px; background-color: white; border: 1px solid #EBEBEB;padding: 3px;" >Add</button></span>
+                    </li>
+
+                </ul>
+            </div>
+
+
+
+            <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12" >
+                <p style="font-size: 12px; color: #646E82; font-weight: 500;">Coachees Added (5)</p>
+                <ol th:field="${booking.employeeList}" class="list-group list-group-numbered overflow-auto" style="font-size: 12px;">
+
+                </ol>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<!-- end of modal body -->
+<div class="modal-footer">
+    <button type="button"  class="btn " data-bs-dismiss="modal" style="width: 142px; height: 36px; border-radius: 5px; background-color: white;color: red; font-weight: 500; font-size: 12px;border: 1px solid #666; " >Back</button>
+    <button id="Preview" type="submit" class="btn" style="width: 142px; height: 36px; border-radius: 5px; background-color: red;color: white; font-weight: 500; font-size: 12px;">Continue</button>
+</div>
+    </fieldset>
+</form>
+<script src="main.js"></script>
+<!-- Code injected by live-server -->
+<script>
+    // <![CDATA[  <-- For SVG support
+    if ('WebSocket' in window) {
+        (function () {
+            function refreshCSS() {
+                var sheets = [].slice.call(document.getElementsByTagName("link"));
+                var head = document.getElementsByTagName("head")[0];
+                for (var i = 0; i < sheets.length; ++i) {
+                    var elem = sheets[i];
+                    var parent = elem.parentElement || head;
+                    parent.removeChild(elem);
+                    var rel = elem.rel;
+                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                    }
+                    parent.appendChild(elem);
+                }
+            }
+            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+            var address = protocol + window.location.host + window.location.pathname + '/ws';
+            var socket = new WebSocket(address);
+            socket.onmessage = function (msg) {
+                if (msg.data == 'reload') window.location.reload();
+                else if (msg.data == 'refreshcss') refreshCSS();
+            };
+            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                console.log('Live reload enabled.');
+                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+            }
+        })();
+    }
+    else {
+        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+    }
+    // ]]>
+</script>
+</body>
+</html>

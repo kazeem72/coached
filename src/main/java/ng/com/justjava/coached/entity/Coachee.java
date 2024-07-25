@@ -20,6 +20,15 @@ public class Coachee {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    private FullName fullName;
+    private String email;
+
+    private String fullName;
+
+    private Boolean admin;
+
+    private String status;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
+
 }

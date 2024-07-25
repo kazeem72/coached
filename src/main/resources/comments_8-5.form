@@ -1,12 +1,4 @@
 {
-  "executionPlatform": "Camunda Cloud",
-  "executionPlatformVersion": "8.4.0",
-  "exporter": {
-    "name": "Camunda Web Modeler",
-    "version": "bf8f46a"
-  },
-  "schemaVersion": 15,
-  "id": "Form_1410unm",
   "components": [
     {
       "components": [
@@ -45,7 +37,25 @@
       },
       "id": "Field_06k7046",
       "key": "newComment"
+    },
+    {
+      "content": "<input type=\"file\"\n cam-variable-name=\"INVOICE_DOCUMENT\"\n cam-variable-type=\"File\"\n       cam-max-filesize=\"10000000\" />\n\n<table>\n  <tr>\n    <th>Serial Number</th>\n    <th>Asset Name</th>\n  </tr>\n{{#loop assetList.response}}\n  <tr>\n    <td>{{serialNumber}}</td>\n    <td>{{assetName}}</td>\n  </tr>\n{{/loop}}\n</table>",
+      "label": "HTML view",
+      "type": "html",
+      "layout": {
+        "row": "Row_1kb3nw6",
+        "columns": null
+      },
+      "id": "Field_0r6c8p8"
     }
   ],
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.5.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.23.0"
+  },
+  "schemaVersion": 16,
+  "id": "Form_1410unm",
   "type": "default"
 }

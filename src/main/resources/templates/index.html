@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout/base_layout}" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://justjava2.share.zrok.io/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coached</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="content">F
+        <section layout:fragment="content">
+            <h6  style="font-size: 17px; color: #000 ;font-family: sans-serif; font-weight: 700;">Welcome Adams</h6>
+            <p style="font-size: 10px; color: #646E82;;" th:text="${'We can’t wait to see '+#authentication.principal.attributes['orgName']+' growth through Coached'}">
+                We can’t wait to see Rexona PLC’s growth through Coached</p>
+            <div class="row">
+                <div class= " col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 style="color: #646E82;font-size: 15px; ">Total Upcoming <br>Sessions</h5>
+                            <img src="https://justjava2.share.zrok.io/images/Green clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
+                            <p style="margin-top: 20px; " th:text="${upcomingSessionCount}">48</p>
+                            <p style="color: #646E82; font-size: 10px;">Sessions</p>
+                            <a href="/coached/upcoming_session"> <button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 style="color: #646E82; font-size: 15px;">Total Ongoing <br>Bookings</h5>
+                            <img src="https://justjava2.share.zrok.io/images/clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
+                            <p style="margin-top: 20px;" th:text="${ongoingBookingCount}">5</p>
+                            <p style="color: #646E82; font-size: 10px;">Bookings</p>
+                            <a href="/coached/upcoming_session"><button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 style="color: #646E82; font-size: 15px;">Total Onboarded <br>Emloyees</h5>
+                            <img src="https://justjava2.share.zrok.io/images/Home/Home/Group 4.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
+                            <p style="margin-top: 20px;" th:text="${employees}">48</p>
+                            <p style="color: #646E82;font-size: 10px;">Employees</p>
+                            <a href="/coached/employees"><button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 style="color: #646E82; font-size: 15px;">Total Completed <br>Sessions</h5>
+                            <img src="https://justjava2.share.zrok.io/images/tick board.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
+                            <p  style="margin-top: 20px;" th:text="${completedCount}">6</p>
+                            <p style="color: #646E82; font-size: 10px;">Sessions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 style="color: #646E82; font-size: 15px;">Total Remaining <br>Sessions</h5>
+                            <img src="https://justjava2.share.zrok.io/images/ba3.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
+                            <p style="margin-top: 20px;">0</p>
+                            <p style="color: #646E82; font-size: 10px;">Sessions</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 style="color: #646E82;font-size: 15px;">Total Completed <br>Sessions</h5>
+                            <img src="https://justjava2.share.zrok.io/images/tick board.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
+                            <p style="margin-top: 20px;">0</p>
+                            <p style="color: #646E82;font-size: 10px;">Sessions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+
+                <div class="col-xl-8 col-lg-8 col-md-8 col-lg-8 col-sm-8">
+
+
+                    <div class="cardi" style="padding-top: 20px;padding-bottom:auto; padding-left: 10px; ">
+                        <div style="display: flex; justify-content: space-between; padding-right: 10px;"><h2 style="color: #646E82; font-size: 14px; " >Recomended Coaches</h2> <div style="display: flex;gap: 2px;"><img src="https://justjava2.share.zrok.io/images/rod.png" alt="" width="50px" height="2px"> <a href="Coaches.html" style="text-decoration: none; color: #646E82; font-size: 10px;margin-top: -5px;">See all</a></div></div>
+
+
+
+
+
+                        <div class="row" style="flex-wrap: nowrap;">
+                            <th:block th:each="coach, i : ${coaches}">
+                                        <div class="col">
+                                            <div class="card mb-3" style="height: 170px;">
+                                                <a th:href="'/coached/coaches/'+${coach.id}"  style="text-decoration: none;">
+                                                    <div class="row g-0 container">
+
+                                                        <div class="col-sm-5">
+                                                            <img src="https://justjava2.share.zrok.io/images/standing man.svg" class="img-fluid rounded-start" alt="...">
+                                                        </div>
+                                                        <div class="col-sm-7">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title" th:text="${coach.fullName}">Coach Tommy</h5>
+
+
+                                                                <p class="card-text" style="margin-top: -5px; color: #646E82;"><img src="https://justjava2.share.zrok.io/images/Small Clock2.png" alt="" width="10px" height="9px"> Last Actve</p>
+                                                                <p class="card-text" style="margin-top: -15px; font-size: 12px;">24 Jan,2023 @ 9:30 AM</p>
+                                                                <hr style="margin-top: -9px;">
+                                                                <div style="display: flex; justify-content: space-between; font-size: 10px;margin-top: -7px; "><h6 style="font-size: 8px;color: #646E82;" th:text="${coach.experience}" >Experience: 5 Years</h6> <h6 style="font-size: 8px">5.0 <img src="https://justjava2.share.zrok.io/images/Little Star 1.png" alt="" width="10px" height="9px"></h6></div>
+                                                                <p style="font-size: 10px;">
+                                                                    <th:block th:each="interest, i : ${coach.areaOfInterests}">
+                                                                        <span style="font-size: 10px;" th:text="${interest.description}"> Leadership </span> |
+                                                                    </th:block>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+
+
+
+                                    </div>
+                                    </a>
+                                </div>
+                            </div>
+                            </th:block>
+                            </div>
+
+
+
+
+                    </div>
+                </div>
+
+
+
+
+<div class="col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4">
+    <div style="background-color: white;padding-top: 10px; padding-left: 20px;padding-right: 10px;" class="card" > <div style="display: flex; justify-content: space-between;">
+        <h2 style="color: #646E82; font-size: 14px; " >Recent Invoices </h2>
+        <a href="Invoices.html">
+            <img src="https://justjava2.share.zrok.io/images/Goto.png" alt="" width="20px" height="20px">
+        </a>
+    </div>
+
+        <th:block th:each="invoice, i : ${invoices}">
+        <div style="display: flex; padding-top: 30px;">
+            <div style="display: flex;">
+                <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden;">
+                    <img src="https://justjava2.share.zrok.io/images/Clearer book.png" alt="Profile Picture" style="width: 35px; height: 35px; object-fit: cover;">
+                </div>
+                <div style="margin-left: 20px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <p style="font-weight: 600; font-size: 10px;" th:text="${invoice.getInvoiceID()}">Invoice #45667 I CFD</p>
+                        <p style="font-size: 10px;">19hrs ago</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; gap: 15px; margin-top: -20px;">
+                        <p style="color: #646E82; font-size: 10px;" th:text="${invoice.getSession().getCoach().fullName}">Coach Albert - 5 Sessions</p>
+                        <p><button style="background-color:#FAFAFA; color: #646E82; width: 70px; border: 2px solid; font-size: 8px;">Expired</button></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </th:block>
+
+
+        <hr style="margin-top: -5px; margin-right: 10px; color: rgba(128, 128, 128, 0.829);">
+
+    </div>
+
+</div>
+
+            </div>
+
+<div class="row">
+    <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="cardi" style="padding-top:10px; ;
+      padding-left: 10px; padding-right: 10px;"  >
+
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <h2 style="color: #646E82; font-size: 14px;">Onboarded Employees</h2>
+                <a href="/coached/employees" style="text-decoration: none; color: #646E82; font-size: 14px; margin-right: 10px;">See all</a>
+            </div>
+            <div style="overflow-x: auto; margin: 20px auto; width: 100%;">
+
+
+                <table class="table" style="width: 100%; border: 1px solid #ccc; border-collapse: collapse;">
+                    <thead>
+                    <tr  style="font-size: 11px; text-wrap:nowrap;">
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Booked Sessions</th>
+                        <th scope="col">Completed Sessions</th>
+                        <th scope="col">Session Expiry Date</th>
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <tr th:each="coachee, i:${organization.getCoachees()}">
+
+                        <td th:text="${i.index + 1}"></td>
+                        <td><div class="profile-card">
+                            <div class="profile-pic">
+                                <img src="https://github.com/mdo.png" alt="Profile Picture">
+                            </div>
+                            <div class="profile-info">
+                                <div class="username" style="font-size: 9px;" th:text="${coachee.fullName}">Ogundipe Damilola</div>
+                                <div class="email" style="font-size: 8px;" th:text="${coachee.email}">ogundipedamilola.funmi@gmail.com</div>
+                            </div>
+                        </div></td>
+                        <td style="font-size: 9px;" th:text="${coachee.admin}?'Admin':'Staff'">Admin</td>
+                        <td><button style="border: none; font-size: 9px; ; color:orange;background-color: rgb(232, 232, 207); border-radius: 10px; width: 76px; height: 23px;" th:text="${coachee.getStatus()}">Invite</button></td>
+                        <td style="font-size: 9px; text-align: center;">0</td>
+                        <td style="font-size: 9px;text-align: center;">0</td>
+                        <td style="font-size: 9px;text-align: center;">N/A</td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+        </section>
+</div>
+
+
+
+<!-- Code injected by live-server -->
+<script>
+    // <![CDATA[  <-- For SVG support
+    if ('WebSocket' in window) {
+        (function () {
+            function refreshCSS() {
+                var sheets = [].slice.call(document.getElementsByTagName("link"));
+                var head = document.getElementsByTagName("head")[0];
+                for (var i = 0; i < sheets.length; ++i) {
+                    var elem = sheets[i];
+                    var parent = elem.parentElement || head;
+                    parent.removeChild(elem);
+                    var rel = elem.rel;
+                    if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                        var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                        elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                    }
+                    parent.appendChild(elem);
+                }
+            }
+            var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+            var address = protocol + window.location.host + window.location.pathname + '/ws';
+            var socket = new WebSocket(address);
+            socket.onmessage = function (msg) {
+                if (msg.data == 'reload') window.location.reload();
+                else if (msg.data == 'refreshcss') refreshCSS();
+            };
+            if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                console.log('Live reload enabled.');
+                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+            }
+        })();
+    }
+    else {
+        console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+    }
+    // ]]>
+</script>
+</body>
+</html>

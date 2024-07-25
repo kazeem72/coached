@@ -1,62 +1,307 @@
 {
   "components": [
     {
+      "text": "# Asset Checkin Form",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_04avdo2",
+        "columns": null
+      },
+      "id": "Field_1i25dk8"
+    },
+    {
+      "label": "Image view",
+      "type": "image",
+      "layout": {
+        "row": "Row_1gk5ce6",
+        "columns": null
+      },
+      "id": "Field_02os07s"
+    },
+    {
       "components": [
         {
           "components": [
             {
-              "text": "#### {{this.subject}}\n##### Summary {{this.summary}}\n- Number of session {{this.numberOfSession}}   Fee {{response[1].fee}}",
-              "label": "Text view",
-              "type": "text",
+              "label": "Model",
+              "type": "textfield",
               "layout": {
-                "row": "Row_04g8nhb",
+                "row": "Row_1cm6fgx",
                 "columns": null
               },
-              "id": "Field_065hosi"
+              "id": "Field_0jrdlrj",
+              "key": "model",
+              "description": "Model",
+              "readonly": false
+            },
+            {
+              "label": "Cost",
+              "type": "textfield",
+              "layout": {
+                "row": "Row_0iz0i7d",
+                "columns": null
+              },
+              "id": "Field_0dcqbwn",
+              "key": "cost",
+              "description": "Cost"
+            },
+            {
+              "label": "Manufacturer",
+              "type": "textfield",
+              "layout": {
+                "row": "Row_14z4cgf",
+                "columns": null
+              },
+              "id": "Field_160r9ka",
+              "key": "manufacturer",
+              "description": "Manufacturer"
+            },
+            {
+              "values": [
+                {
+                  "label": "Abuja Main office",
+                  "value": "abuja_main"
+                },
+                {
+                  "label": "Abuja Office (Garki)",
+                  "value": "abuja_garki"
+                },
+                {
+                  "label": "Lagos Office",
+                  "value": "lagos_office"
+                }
+              ],
+              "label": "Location",
+              "type": "select",
+              "layout": {
+                "row": "Row_1me5gni",
+                "columns": null
+              },
+              "id": "Field_10vil06",
+              "key": "location"
+            },
+            {
+              "values": [
+                {
+                  "label": "Value",
+                  "value": "value"
+                }
+              ],
+              "label": "Assign To",
+              "type": "select",
+              "layout": {
+                "row": "Row_134htcs",
+                "columns": null
+              },
+              "id": "Field_0m2376o",
+              "key": "select_nr9vy"
+            },
+            {
+              "subtype": "date",
+              "dateLabel": "Last audit date",
+              "label": "Date time",
+              "type": "datetime",
+              "layout": {
+                "row": "Row_12qpqw0",
+                "columns": null
+              },
+              "id": "Field_1ic26s2",
+              "key": "last_audit_date",
+              "description": "Last Auit Date"
             }
           ],
           "showOutline": true,
           "label": "",
           "type": "group",
           "layout": {
-            "row": "Row_1uiznl1",
+            "row": "Row_0xyyipl",
             "columns": null
           },
-          "id": "Field_0stalss",
-          "path": "this",
-          "verticalAlignment": "end",
+          "id": "Field_1ientdd"
+        },
+        {
+          "components": [
+            {
+              "label": "Asset ID",
+              "type": "textfield",
+              "layout": {
+                "row": "Row_17s1jcg",
+                "columns": null
+              },
+              "id": "Field_17i7m16",
+              "key": "assetID",
+              "description": "Asset ID"
+            },
+            {
+              "values": [
+                {
+                  "label": "Computer",
+                  "value": "computer"
+                },
+                {
+                  "label": "Photocopier",
+                  "value": "photoCopier"
+                },
+                {
+                  "label": "Printer",
+                  "value": "printer"
+                },
+                {
+                  "label": "Microwave",
+                  "value": "microwave"
+                },
+                {
+                  "label": "Table",
+                  "value": "table"
+                }
+              ],
+              "label": "Asset Type",
+              "type": "select",
+              "layout": {
+                "row": "Row_0y8um4x",
+                "columns": null
+              },
+              "id": "Field_0jk869n",
+              "key": "assetType",
+              "description": "Asset Type",
+              "searchable": true
+            },
+            {
+              "label": "Serial Number",
+              "type": "textfield",
+              "layout": {
+                "row": "Row_06edwdf",
+                "columns": null
+              },
+              "id": "Field_1vp0t1a",
+              "key": "serialNumber",
+              "description": "Serial Number"
+            },
+            {
+              "label": "Vendor",
+              "type": "textfield",
+              "layout": {
+                "row": "Row_0zwe4oc",
+                "columns": null
+              },
+              "id": "Field_126ya8e",
+              "key": "vendor",
+              "description": "Vendor"
+            },
+            {
+              "subtype": "date",
+              "dateLabel": "Date Purchased",
+              "label": "Date time",
+              "type": "datetime",
+              "layout": {
+                "row": "Row_0gijj26",
+                "columns": null
+              },
+              "id": "Field_1f8xn5n",
+              "key": "datePurchased"
+            },
+            {
+              "subtype": "date",
+              "dateLabel": "Warranty Expiration",
+              "label": "Date time",
+              "type": "datetime",
+              "layout": {
+                "row": "Row_1ybqs26",
+                "columns": null
+              },
+              "id": "Field_1gd4ta6",
+              "key": "warrantyExpiration"
+            }
+          ],
+          "showOutline": true,
+          "label": "",
+          "type": "group",
+          "layout": {
+            "row": "Row_0xyyipl",
+            "columns": null
+          },
+          "id": "Field_02d4xvy"
+        },
+        {
+          "label": "Add Custom Feld",
+          "type": "checkbox",
+          "layout": {
+            "row": "Row_070gzuu",
+            "columns": null
+          },
+          "id": "Field_0j99lws",
+          "key": "allowCustomField"
+        },
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "label": "Field Label",
+                  "type": "textfield",
+                  "layout": {
+                    "row": "Row_0ibkn6d",
+                    "columns": null
+                  },
+                  "id": "Field_17jtz4o",
+                  "key": "AssetCustomField"
+                },
+                {
+                  "label": "Field Value",
+                  "type": "textfield",
+                  "layout": {
+                    "row": "Row_0ibkn6d",
+                    "columns": null
+                  },
+                  "id": "Field_1qht606",
+                  "key": "textfield_4c9rq"
+                }
+              ],
+              "showOutline": false,
+              "label": "Custom Field(s)",
+              "type": "group",
+              "layout": {
+                "row": "Row_18on3q3",
+                "columns": null
+              },
+              "id": "Field_1oyqmte"
+            }
+          ],
+          "showOutline": false,
+          "isRepeating": true,
+          "allowAddRemove": true,
+          "defaultRepetitions": 1,
+          "label": "",
+          "type": "dynamiclist",
+          "layout": {
+            "row": "Row_0tet4nq",
+            "columns": null
+          },
+          "id": "Field_0288oq0",
+          "path": "dynamiclist_l066dk",
           "conditional": {
-            "hide": "=checkbox_approve"
+            "hide": "=not(allowCustomField) "
           }
         }
       ],
       "showOutline": true,
       "isRepeating": true,
-      "allowAddRemove": true,
+      "allowAddRemove": false,
       "defaultRepetitions": 1,
-      "label": "List of Programs",
+      "label": "",
       "type": "dynamiclist",
       "layout": {
-        "row": "Row_0dlp488",
+        "row": "Row_1dn8syj",
         "columns": null
       },
-      "id": "Field_17qmo7s",
-      "path": "response",
-      "verticalAlignment": "start"
-    },
-    {
-      "label": "Approve",
-      "type": "checkbox",
-      "layout": {
-        "row": "Row_1wse41k",
-        "columns": null
-      },
-      "id": "Field_0v2t1s6",
-      "key": "checkbox_approve"
+      "id": "Field_0lhp4wt",
+      "path": "dynamiclist_wwg0gf",
+      "disableCollapse": true
     }
   ],
   "type": "default",
-  "id": "Form_register_coache",
+  "id": "Form_asset_checkin",
   "executionPlatform": "Camunda Cloud",
   "executionPlatformVersion": "8.5.0",
   "exporter": {

@@ -1,3 +1,4 @@
+
 camunda:
   client:
     mode: oidc
@@ -35,16 +36,35 @@ camunda:
 
 spring:
   thymeleaf.cache: false
-  mail:
-    default-encoding: UTF-8
-    host: mail.justjava.com.ng
-    username: info@justjava.com.ng
-    password: 020775Rashy!
-    port: 587
-    properties.mail.smtp:
-      auth: true
-      starttls.enable: false
-    protocol: smtp
-    test-connection: false
+#  mail:
+#    default-encoding: UTF-8
+#    host: mail.justjava.com.ng
+#    username: info@justjava.com.ng
+#    password: 020775Rashy!
+#    port: 587
+#    properties.mail.smtp:
+#      auth: true
+#      starttls.enable: false
+#    protocol: smtp
+#    test-connection: false
 
+  web:
+    resources:
+      static-locations: classpath:/static/styles/, classpath:/static/images/, classpath:/template/fragments/
 
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: https://justjava1.share.zrok.io/oauth2/realms/justjavaRealm
+            user-name-attribute: preferred_username
+        registration:
+          keycloak-oidc:
+            provider: keycloak
+            client-name: Coached
+            client-id: coached
+            client-secret: 6T07ySda0GHZXTQd25oqqFCPAGxRgAaW
+            authorization-grant-type: authorization_code
+            scope: openid,profile,email, phone
+            redirect-uri: https://justjavacoached.share.zrok.io/coached/login/oauth2/code/keycloak-oid

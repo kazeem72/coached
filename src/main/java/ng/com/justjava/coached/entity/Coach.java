@@ -14,9 +14,7 @@ import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.rest.core.annotation.RestResource;
 
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @Builder
@@ -29,9 +27,30 @@ public class Coach {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    private FullName fullName;
+    private String firstName;
+    private String secondName;
+    private String lastName;
 
+    private Integer experience;
+
+    private String biography;
+
+    @ElementCollection
+    @CollectionTable(name = "Coach_certificate", joinColumns = @JoinColumn(name = "owner_id"))
+    private List<Certificate> certificate = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "Coach_award", joinColumns = @JoinColumn(name = "owner_id"))
+    private List<Award> award = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "Coach_reviews", joinColumns = @JoinColumn(name = "owner_id"))
+    private List<Reviews> reviews = new ArrayList<>();
+
+    @Transient
+    public String getFullName(){
+        return firstName+" "+ secondName +", "+lastName;
+    }
     @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "diary_id")
     private Diary diary;
