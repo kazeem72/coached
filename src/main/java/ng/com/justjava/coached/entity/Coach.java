@@ -1,12 +1,10 @@
 package ng.com.justjava.coached.entity;
 
-import jakarta.annotation.Resource;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ng.com.justjava.coached.valueObject.FullName;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -14,6 +12,7 @@ import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Data
@@ -21,23 +20,37 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Coach {
+public class Coach extends Completable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
+
+    @Column(unique = true)
+    private String email;
     private String firstName;
     private String secondName;
     private String lastName;
 
+    private String myPicture;
+
+    private String myVideo;
     private Integer experience;
 
     private String biography;
 
+    private Boolean verify;
+
     @ElementCollection
-    @CollectionTable(name = "Coach_certificate", joinColumns = @JoinColumn(name = "owner_id"))
-    private List<Certificate> certificate = new ArrayList<>();
+    @Column(name = "my_award")
+    @CollectionTable(name = "Coach_myAwards", joinColumns = @JoinColumn(name = "owner_id"))
+    private List<String> myAwards = new ArrayList<>();
+
+    @ElementCollection
+    @Column(name = "my_certification")
+    @CollectionTable(name = "Coach_myCertifications", joinColumns = @JoinColumn(name = "owner_id"))
+    private Set<String> myCertifications = new LinkedHashSet<>();
 
     @ElementCollection
     @CollectionTable(name = "Coach_award", joinColumns = @JoinColumn(name = "owner_id"))
@@ -49,12 +62,17 @@ public class Coach {
 
     @Transient
     public String getFullName(){
-        return firstName+" "+ secondName +", "+lastName;
+        return firstName+" "+ (secondName==null?"":secondName +", ") +lastName;
     }
     @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "diary_id")
-    private Diary diary;
+    @Cascade({CascadeType.ALL})
+    @JoinColumn(name = "booked_id")
+    private Diary booked;
 
+    @OneToOne(orphanRemoval = true)
+    @Cascade({CascadeType.ALL})
+    @JoinColumn(name = "available_id")
+    private Diary available;
     /*@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "coach_id")
     private Set<SessionRequest> sessionRequests = new LinkedHashSet<>();*/
@@ -65,9 +83,38 @@ public class Coach {
     @JoinTable(name = "Coach_areaOfInterests",
             joinColumns = @JoinColumn(name = "coach_id"),
             inverseJoinColumns = @JoinColumn(name = "areaOfInterests_id"))
-    private Set<AreaOfInterest> areaOfInterests = new LinkedHashSet<>();
+    private List<AreaOfInterest> areaOfInterests = new ArrayList<>();
+
+    @ElementCollection
+    @Column(name = "focus_area")
+    @CollectionTable(name = "Coach_focusArea", joinColumns = @JoinColumn(name = "owner_id"))
+    private List<String> focusArea = new ArrayList<>();
 
 
+
+    public Coach addAward(String award){
+        this.myAwards.add(award);
+        return this;
+    }
+    public Coach addCertificate(String certificate){
+        this.myCertifications.add(certificate);
+        return this;
+    }
+    public String getMyDisplayPicture(){
+        return myPicture!=null?myPicture:"standing man.svg";
+    }
+
+    public String getMyDisplayVideo(){
+
+        return myVideo!=null?myVideo:"vid1.mp4";
+    }
+    public Boolean getDiaryFilled(){
+        if(available!=null && !available.getEvents().isEmpty())
+            return true;
+
+        return false;
+
+    }
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
@@ -82,5 +129,10 @@ public class Coach {
     @Override
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+    }
+
+    @PostLoad
+    public void postLoad() {
+        setLastActive(LocalDateTime.now());
     }
 }

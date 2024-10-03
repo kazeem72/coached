@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Urbanist" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+<div class="modal-body">
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+  <div style="padding:20px; height: 100%; width: 100%; background-color:white;">
+    <div style="display: flex; padding-top: 20px; justify-content: center;">
+      <div class="card mb-3" style="min-width: 250px;height: 170px;">
+        <div class="row g-0">
+          <div class="col-sm-5">
+            <img src="images/standing man.svg" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-sm-7">
+            <div class="card-body">
+              <h5 class="card-title">Coach Tommy</h5>
+
+
+              <p class="card-text" style="margin-top: -5px; color: #646E82;"><img src="images/Small Clock2.png" alt="" width="10px" height="9px"> Last Actve</p>
+              <p class="card-text" style="margin-top: -15px; font-size: 12px;">24 Jan,2023 @ 9:30 AM</p>
+              <hr style="margin-top: -9px;">
+              <div style="display: flex; justify-content: space-between; font-size: 10px;margin-top: -7px; "><h6 style="font-size: 8px;color: #646E82;" >Experience: 5 Years</h6> <h6 style="font-size: 8px">5.0 <img src="images/Little Star 1.png" alt="" width="10px" height="9px"></h6></div>
+              <p style="font-size: 10px;">Leadership | Communication | Business | Health | Development </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1 style="text-align: center; font-size: 30px;">Successful</h1>
+    <p style="color: #646E82; text-align: center; font-size: 12px;">You have successfully initiated a booking with Coach Marie . Proceed to ongoing bookings page to complete the booking process.</p>
+    <div style="display: flex; justify-content: center;">
+      <button data-bs-dismiss="modal" id="btonBooking" type="button" class="btn btn-secondary" style=" background-color: red; color:white;">Ok</button></div>
+  </div>
+
+</div>
+
+<script src="main.js"></script>
+<!-- Code injected by live-server -->
+<script>
+  // <![CDATA[  <-- For SVG support
+  if ('WebSocket' in window) {
+    (function () {
+      function refreshCSS() {
+        var sheets = [].slice.call(document.getElementsByTagName("link"));
+        var head = document.getElementsByTagName("head")[0];
+        for (var i = 0; i < sheets.length; ++i) {
+          var elem = sheets[i];
+          var parent = elem.parentElement || head;
+          parent.removeChild(elem);
+          var rel = elem.rel;
+          if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+          }
+          parent.appendChild(elem);
+        }
+      }
+      var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+      var address = protocol + window.location.host + window.location.pathname + '/ws';
+      var socket = new WebSocket(address);
+      socket.onmessage = function (msg) {
+        if (msg.data == 'reload') window.location.reload();
+        else if (msg.data == 'refreshcss') refreshCSS();
+      };
+      if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+        console.log('Live reload enabled.');
+        sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+      }
+    })();
+  }
+  else {
+    console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+  }
+  // ]]>
+</script>
+</body>
+</html>

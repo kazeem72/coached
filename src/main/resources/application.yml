@@ -1,4 +1,3 @@
-
 camunda:
   client:
     mode: oidc
@@ -48,23 +47,23 @@ spring:
 #    protocol: smtp
 #    test-connection: false
 
-  web:
-    resources:
-      static-locations: classpath:/static/styles/, classpath:/static/images/, classpath:/template/fragments/
+#  web:
+#    resources:
+#      static-locations: classpath:/static/models/, classpath:/static/js/, classpath:/static/images/, classpath:/template/fragments/
 
   security:
     oauth2:
       client:
         provider:
           keycloak:
-            issuer-uri: https://justjava1.share.zrok.io/oauth2/realms/justjavaRealm
+            issuer-uri: https://45306ec7-2747-46cd-b78e-a00a7c6d8bb2.app.skycloak.io/realms/justjavaRealm
             user-name-attribute: preferred_username
         registration:
           keycloak-oidc:
             provider: keycloak
             client-name: Coached
             client-id: coached
-            client-secret: 6T07ySda0GHZXTQd25oqqFCPAGxRgAaW
+            client-secret: w7iZInFrt4Lz1tQTu3LALvTnaBSpLugS
             authorization-grant-type: authorization_code
             scope: openid,profile,email, phone
-            redirect-uri: https://justjavacoached.share.zrok.io/coached/login/oauth2/code/keycloak-oid
+            # redirect-uri: https://justjavacoached.share.zrok.io/coached/login/oauth2/code/keycloak-oid

@@ -1,51 +1,137 @@
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <!-- Option 1: Include in HTML -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+<div class="sidebar-container" th:fragment="sidebar(userType)" th:if="${!session.firstTime}">
+  <button class="sidebar-toggle">
+    <span class="burger" data="hamburger-menu"></span>
+  </button>
 <div class="sidebar">
-  <div class="d-flex flex-column flex-shrink-0 " style="width: 200px;  ">
+  <div class="d-flex flex-column flex-shrink-0 ">
 
-    <ul class="nav nav-pills flex-column mb-auto" style="padding-top:30px ; gap: 10px;">
-      <li class="nav-item"  >
-        <a href="#" class="nav-link active" aria-current="page">
-          <img src= "https://justjava2.share.zrok.io/images/Home/mage_dashboard-fill.png"  alt="" height="16px" width="16px" style="margin-left: 41px;">
-          <span style="padding-left: 13px; color: red;">Overview</span>
+    <ul id="myList" class="nav nav-pills flex-column mb-auto" style="padding-top:30px ; gap: 10px;">
+      <li class="nav-item "  >
+        <a href="/coached" class="nav-link link-body-emphasis active" aria-current="page">
+          <span class="mnm" style="padding-left: 13px;"><i class="bi bi-grid-fill" style="margin-left: 16px;margin-right: 16px"></i> Overview
+          </span>
+        </a>
+      </li>
+
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+        <a href="/coached/coachesList" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"><i class="bi bi-person-circle" style="margin-left: 16px;margin-right: 16px"></i> Coaches</span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+        <a href="/coached/coacheeList" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"><i class="bi bi-laptop" style="margin-left: 16px;margin-right: 16px"></i> Coachees</span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+        <a href="/coached/organizationsList" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"><i class="bi bi-bezier" style="margin-left: 16px;margin-right: 16px"></i> Organization</span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+        <a href="/coached/invoices" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;">
+            <i class="bi bi-receipt" style="margin-left: 16px;margin-right: 16px">
+
+            </i> Invoices</span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+        <a href="/coached/resources" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"><i class="bi bi-collection" style="margin-left: 16px;margin-right: 16px">
+
+          </i> Resources</span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'coach')}">
+        <a href="/coached/coachSchedule"
+           class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;">
+            <i class="bi bi-calender-event" style="margin-left: 16px;margin-right: 16px">
+
+          </i> Schedules</span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'coach')}">
+        <a href="/coached/mycoachees" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"><i class="bi bi-laptop" style="margin-left: 16px;margin-right: 16px"></i> My Coachees</span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'coach')}">
+        <a href="/coached/resources" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;">
+            <i class="bi bi-collection" style="margin-left: 16px;margin-right: 16px">
+
+            </i>
+            Resources
+          </span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'coach')}">
+        <a href="/coached/reviews" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;">
+            <i class="bi bi-star" style="margin-left: 16px;margin-right: 16px">
+
+          </i> Reviews
+          </span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'Organization Admin')}">
+        <a href="/coached/employees" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;">
+            <i class="bi bi-people-fill" style="margin-left: 16px;margin-right: 16px"></i> Employees
+          </span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'Organization Admin')}">
+        <a href="/coached/adminCoachList" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;">
+            <i class="bi bi-person-circle" style="margin-left: 16px;margin-right: 16px"></i> Coaches
+          </span>
+        </a>
+      </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'coachees')}">
+        <a href="/coached/coaches" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"
+                th:text="${#strings.contains(session.userType,'Organization')}?'Coaches':'My Coaches'"><i class="bi bi-person-circle" style="margin-left: 16px;margin-right: 16px"></i> Coaches</span>
+        </a>
+      </li>
+      <li th:if="${#strings.contains(session.userType,'Organization') ||
+      #strings.equalsIgnoreCase(session.userType,'coach') ||
+      #strings.equalsIgnoreCase(session.userType,'Direct Coachee')
+      }">
+        <a href="/coached/invoices" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"><i class="bi bi-receipt" style="margin-left: 16px;margin-right: 16px"></i> Invoices</span>
         </a>
       </li>
       <li>
-        <a href="https://justjava1.share.zrok.io/coached/employees" class="nav-link link-body-emphasis">
-          <img src="https://justjava2.share.zrok.io/images/Home/raphael_people.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-          <span style="padding-left: 13px;">Employees</span>
+        <a href="/coached/session_history" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"><i class="bi bi-clock-history" style="margin-left: 16px;margin-right: 16px"></i> Session History</span>
         </a>
       </li>
       <li>
-        <a href="https://justjava1.share.zrok.io/coached/coaches" class="nav-link link-body-emphasis">
-          <img src="https://justjava2.share.zrok.io/images/Home/Vector.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-          <span style="padding-left: 13px;">Coaches</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://justjava1.share.zrok.io/coached/invoices" class="nav-link link-body-emphasis">
-          <img src="https://justjava2.share.zrok.io/images/Home/basil_invoice-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-          <span style="padding-left: 13px;">Invoices</span>
-        </a>
-      </li>
-      <li>
-        <a href="https://justjava1.share.zrok.io/coached/session_history" class="nav-link link-body-emphasis">
-          <img src="https://justjava2.share.zrok.io/images/Home/tabler_history.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-          <span style="padding-left: 13px;">Session History</span>
-        </a>
-      </li>
-      <li>
-        <a href="Chats.html" class="nav-link link-body-emphasis">
-          <img src="https://justjava2.share.zrok.io/images/Home/flowbite_messages-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-          <span style="padding-left: 13px;">Chats</span>
+        <a href="/coached/chat" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"><i class="bi bi-chat-right-dots" style="margin-left: 16px;margin-right: 16px"></i> Chats</span>
         </a>
       </li>
     </ul>
 
     <div class="dropdown" style="padding-top:80px ;">
-      <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none ">
-        <img src="https://justjava2.share.zrok.io/images/Home/Vector@2x.png"  alt="" height="16px" width="16px" style="margin-left: 45px;">
+      <a href="/coached/logout" class="d-flex align-items-center link-body-emphasis text-decoration-none ">
+        <img src="/coached/Home/Vector@2x.png"  alt="" height="16px" width="16px" style="margin-left: 45px;">
         <span style="padding-left: 13px;">Log out</span>
       </a>
 
     </div>
   </div>
 </div>
+</div>
+</html>

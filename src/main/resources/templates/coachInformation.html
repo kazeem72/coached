@@ -5,8 +5,9 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/fragments/layout/base_layout}" xmlns="http://www.w3.org/1999/html">
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Urbanist" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://justjava2.share.zrok.io/style.css">
+  <link rel="stylesheet" href="/coached/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Coaches-Information</title>
@@ -14,8 +15,9 @@
   <script th:inline="javascript">
     $(document).ready(function() {
       $('#openModal').on('click',function(){
+        //alert(" Opening modal here!!!!")
 
-        $('.modal-body').load('/coached/booking',function(){
+        $('.modal-body').load('/coached/booking/[[${coach.id}]]',function(){
           $('#bookModal').modal("show");
         });
       });
@@ -52,13 +54,16 @@
 
 
 
-      <h1 style="font-size: 17px;color: #000 ; font-weight: 700"><a href="/coached"><img src="https://justjava2.share.zrok.io/images/Back.png" alt="" width="20px" height="20px"></a> Back</h1>
+      <h1 style="font-size: 17px;color: #000 ; font-weight: 700"><a id="return" href="#">
+        <img src="/coached/Back.png" alt="" width="20px" height="20px">
+      </a> Back</h1>
+
       <div class="row">
         <div class="col-xxl-8 col-xl-8 col-lg-8 col-md-12 col-sm-12">
           <div class="card" style="padding: 20px; height: auto;" >
             <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
               <div>
-                <img src="https://justjava2.share.zrok.io/images/standing man.svg" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 20%; object-fit: cover;">
+                <img th:src="@{'/'+${coach.myDisplayPicture}}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 20%; object-fit: cover;">
               </div>
               <div style="margin-top: 10px;">
                 <h2 style="font-size: 15px; color:black;font-weight: 400;" th:text="${coach.fullName}">Tommy Oliver</h2>
@@ -68,15 +73,30 @@
               <div style="margin-top: 10px;">
                 <h2 style="font-size: 10px;color: black; font-weight: 700;">Focus Areas</h2>
                 <p style="font-size: 8px; color: black;border-left: 1px solid red;padding-left: 3px;">
-                  <th:block th:each="interest, i : ${coach.areaOfInterests}">
-                    <span style="font-size: 10px;" th:text="${interest.description}"> Leadership </span> |
+                  <th:block th:each="focusArea, i : ${coach.focusArea}">
+                    <span style="font-size: 10px;" th:text="${focusArea}"> Leadership </span> |
                   </th:block>
                 </p>
               </div>
               <div style="margin-top: 10px;">
                 <button class="" id="openModal" type="button" style="background-color:
                         white; color: red; width: 100px; height: 30px; border-radius:
-                10px;border:1px solid #666;font-weight: 700;">Book Coach</button>
+                10px;border:1px solid #666;font-weight: 700;"
+                        th:if="${!#strings.equalsIgnoreCase(session.userType,'EZ37 Admin') &&
+                        !#strings.equalsIgnoreCase(session.userType,'coach')}">Book Coach
+                </button>
+                <button class="" id="approveModal" type="button" style="background-color:
+                        white; color: red; width: 100px; height: 30px; border-radius:
+                10px;border:1px solid #666;font-weight: 700;"
+                        th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+                  Approve
+                </button>
+                <button class="" id="rejectModal" type="button" style="background-color:
+                        white; color: red; width: 100px; height: 30px; border-radius:
+                10px;border:1px solid #666;font-weight: 700;"
+                        th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+                  Reject
+                </button>
               </div>
             </div>
             <hr>
@@ -88,35 +108,31 @@
             </div>
             <label for="ch" class="" style="margin-top: -10px;font-size: 10px; color: red;cursor: pointer;">Show More</label>
             <hr>
-            <h2 style="font-size: 15px;color: black; font-weight: 700;"><img src="https://justjava2.share.zrok.io/images/certificate.png" alt="" height="16px" width="15px"> Coaching Certifications</h2>
+            <h2 style="font-size: 15px;color: black; font-weight: 700;">
+              <img src="/coached/certificate.png" alt="" height="16px" width="15px"> Coaching Certifications</h2>
             <div class="row">
 
-              <th:block th:each="certificate, i : ${coach.certificate}">
+              <th:block th:each="certificate, i : ${coach.myCertifications}">
 
-              <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4">
-                <div class="card" style="height: auto; padding-top: 10px;padding-left: 10px;padding-right: 10px;">
-                  <h6 style="font-size: 11px; font-weight: 200;" th:text="${certificate.name}">
-                    Corprate Coaching Certification
-                  </h6>
-                  <p style="font-size: 9px;color: #666; " th:text="${certificate.awardBy}">
-                    Association for Coaching (AC)
-                  </p>
-                  <p style="font-size: 9px;color: #666; " th:text="${certificate.dateIssued}">
-                    Issued: 7 -07 -2014</p>
-                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+                  <th:block th:each="certificate : ${coach.myCertifications}" >
+                    <img data-bs-toggle="modal" data-bs-target="#staticBackdrop4"
+                         th:src="@{'/'+${certificate}}" alt="" width="174" height="150"
+                         style="cursor: pointer;">
+                  </th:block>
               </div>
               </th:block>
               <p style="font-size: 10px; color: red;font-weight: 100;cursor: pointer;">Show all</p>
             </div>
             <hr>
-            <h2 style="font-size: 15px;color: black; font-weight: 700;"><img src="https://justjava2.share.zrok.io/images/award.png" alt="" height="15" width="15"> Awards</h2>
+            <h2 style="font-size: 15px;color: black; font-weight: 700;"><img src="/coached/award.png" alt="" height="15" width="15"> Awards</h2>
             <div class="row">
-              <th:block th:each="award, i : ${coach.award}">
+              <th:block th:each="award, i : ${coach.myAwards}">
               <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4">
                 <div class="card" style="height: auto; padding-top: 10px;padding-left: 10px;padding-right: 10px;">
-                  <h6 style="font-size: 11px; font-weight: 200;" th:text="${award.name}"> Corprate Coaching Certification</h6>
-                  <p style="font-size: 9px;color: #666; " th:text="${award.awardBy}">Association for Coaching (AC) </p>
-                  <p style="font-size: 9px;color: #666; " th:text="${award.dateIssued}">Issued: 7 -07 -2014</p>
+                  <img data-bs-toggle="modal" data-bs-target="#staticBackdrop4"
+                       th:src="@{'/'+${award}}" alt="" width="174" height="150"
+                       style="cursor: pointer;">
                 </div>
               </div>
               </th:block>
@@ -139,7 +155,7 @@
             <div style="display: flex; justify-content: space-between;">
               <div style="display: flex; ">
                 <div style="width: 30px; height: 30px; border-radius: 50%; overflow: hidden;">
-                  <img src="https://justjava2.share.zrok.io/images/woman pic.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                  <img src="/coached/woman pic.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
                 <div style="margin-left: 8px;">
                   <h3 style="font-size: 10px; color: #333;" th:text="${review.reviewer}">John Doe</h3>
@@ -148,7 +164,7 @@
                     <span style="font-size: 8px; color: #666; margin-top: -8px;" th:text="${review.dateReviewed}">June 5, 2024</span> </p>
                 </div>
               </div>
-              <img src="https://justjava2.share.zrok.io/images/Stars.png" alt="" style="width: 35px; height: 10px;">
+              <img src="/coached/Stars.png" alt="" style="width: 35px; height: 10px;">
             </div>
             <p style="font-size: 7px;" th:text="${review.review}">Lorem ipsum dolor sit amet consectetur. Morbi ut id id nibh eros porttitor et bibendum consequat. Enim rhoncus elit eget lectus in purus eget. Sit consectetur gravida vestibulum posuere vitae. Facilisis adipiscing nunc massa sed. vbbnjmmfh Lorem ipsum dolor sit amet consectetur. Morbi ut id id nibh eros porttitor et bibendum consequat. Enim rhoncus elit eget lectus in purus eget. Sit consectetur gravida vestibulum posuere vitae. Facilisis adipiscing nunc massa sed. vbbnjmmfh  purus eget. </p>
           </div>
@@ -159,7 +175,13 @@
           </div>
         </div>
       </div>
-
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script>
+        $('#return').click(function (){
+          event.preventDefault();
+          window.history.back()
+        })
+      </script>
   </section>
   <!-- Modal -->
 

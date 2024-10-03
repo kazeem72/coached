@@ -5,11 +5,45 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/fragments/layout/base_layout}" xmlns="http://www.w3.org/1999/html">
 <head>
+  <link href='https://fonts.googleapis.com/css?family=Urbanist' rel='stylesheet'>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://justjava2.share.zrok.io/style.css">
+  <link rel="stylesheet" href="/coached/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reviews</title>
+  <title>Upcoming-Session</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script th:inline="javascript">
+
+
+    function gotomeeting(s) {
+      let link = '/coached/gotomeeting/'+s;
+      window.open(link);
+    }
+
+
+  $(document).ready(function() {
+
+      $('.modal_link').on('click',function(event){
+        event.preventDefault();
+        let link = this.href;
+
+        //alert(' The link here =='+link);
+
+        $('.modal-content').load(link,function(){
+          $('#bookModal').modal("show");
+        });
+      });
+
+      $('#gotomeeting').on('click',function(event){
+
+        event.preventDefault();
+        let link = '/coached/gotomeeting/'+this.name;
+
+        window.open(link);
+
+      });
+    });
+  </script>
 </head>
 <body>
 <div class="header py-0">
@@ -18,25 +52,23 @@
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-            <img src="https://justjava2.share.zrok.io/images/CoachedLogo.svg" class="bi me-2" width="120" height="120" role="img" aria-label="Bootstrap"/>
+            <img src="/coached/CoachedLogo.svg" class="bi me-2" width="120" height="120" role="img" aria-label="Bootstrap"/>
           </a>
 
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
 
-
             <li>
               <a href="#" class="nav-link text-white">
-                <img src="https://justjava2.share.zrok.io/images/Top Nav/Vector.png" class="bi d-block mx-auto mb-1" width="28" height="28"/>
+                <img src="/coached/Top Nav/Vector.png" class="bi d-block mx-auto mb-1" width="28" height="28"/>
 
               </a>
             </li>
-
 
             <li>
               <a href="#" class="nav-link text-white">
                 <div style="display: flex; border-left: 2px solid rgba(0, 0, 0, 0.043);padding-left: 20px; ">
                   <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
-                    <img src="https://justjava2.share.zrok.io/images/woman pic.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="/coached/woman pic.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
                   </div>
                   <div style="margin-left: 8px;">
                     <h3 style="font-size: 16px; color: #333;">Adams Wheeler</h3>
@@ -52,518 +84,174 @@
       </div>
     </div>
   </div>
+  <div class="sidebar-container">
+    <button class="sidebar-toggle">
+      <span class="burger"></span>
+    </button>
+    <div class="sidebar">
+      <div class="d-flex flex-column flex-shrink-0 " style="width: 200px;  ">
 
-  <div class="sidebar">
-    <div class="d-flex flex-column flex-shrink-0 " style="width: 200px;  ">
+        <ul class="nav nav-pills flex-column mb-auto" style="padding-top:30px ; gap: 10px;">
+          <li>
+            <a href="/coached/" class="nav-link link-body-emphasis">
+              <img src="/coached/mage_dashboard-fill.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+              <span style="padding-left: 13px;">Overview</span>
+            </a>
+          </li>
+          <li>
+            <a href="Employess.html" class="nav-link link-body-emphasis">
+              <img src="/coached/Home/raphael_people.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+              <span style="padding-left: 13px;">Employees</span>
+            </a>
+          </li>
+          <li>
+            <a href="Coaches.html" class="nav-link link-body-emphasis">
+              <img src="/coached/Home/Vector.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+              <span style="padding-left: 13px;">Coaches</span>
+            </a>
+          </li>
+          <li>
+            <a href="Invoices.html" class="nav-link link-body-emphasis">
+              <img src="/coached/Home/basil_invoice-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+              <span style="padding-left: 13px;">Invoices</span>
+            </a>
+          </li>
+          <li>
+            <a href="Sessions.html" class="nav-link link-body-emphasis">
+              <img src="/coached/Home/tabler_history.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+              <span style="padding-left: 13px;">Session History</span>
+            </a>
+          </li>
+          <li>
+            <a href="Chats.html" class="nav-link link-body-emphasis">
+              <img src="/coached/Home/flowbite_messages-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+              <span style="padding-left: 13px;">Chats</span>
+            </a>
+          </li>
+        </ul>
 
-      <ul class="nav nav-pills flex-column mb-auto" style="padding-top:30px ; gap: 10px;">
-        <li>
-          <a href="/coached/" class="nav-link link-body-emphasis">
-            <img src="https://justjava2.share.zrok.io/images/mage_dashboard-fill.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-            <span style="padding-left: 13px;">Overview</span>
+        <div class="dropdown" style="padding-top:80px ;">
+          <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none ">
+            <img src="/coached/Home/Vector@2x.png"  alt="" height="16px" width="16px" style="margin-left: 45px;">
+            <span style="padding-left: 13px;">Log out</span>
           </a>
-        </li>
-        <li>
-          <a href="Employess.html" class="nav-link link-body-emphasis">
-            <img src="https://justjava2.share.zrok.io/images/Home/raphael_people.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-            <span style="padding-left: 13px;">Employees</span>
-          </a>
-        </li>
-        <li>
-          <a href="Coaches.html" class="nav-link link-body-emphasis">
-            <img src="https://justjava2.share.zrok.io/images/Home/Vector.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-            <span style="padding-left: 13px;">Coaches</span>
-          </a>
-        </li>
-        <li>
-          <a href="Invoices.html" class="nav-link link-body-emphasis">
-            <img src="https://justjava2.share.zrok.io/images/Home/basil_invoice-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-            <span style="padding-left: 13px;">Invoices</span>
-          </a>
-        </li>
-        <li>
-          <a href="Sessions.html" class="nav-link link-body-emphasis">
-            <img src="https://justjava2.share.zrok.io/images/Home/tabler_history.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-            <span style="padding-left: 13px;">Session History</span>
-          </a>
-        </li>
-        <li>
-          <a href="Chats.html" class="nav-link link-body-emphasis">
-            <img src="https://justjava2.share.zrok.io/images/Home/flowbite_messages-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
-            <span style="padding-left: 13px;">Chats</span>
-          </a>
-        </li>
-      </ul>
 
-      <div class="dropdown" style="padding-top:80px ;">
-        <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none ">
-          <img src="https://justjava2.share.zrok.io/images/Home/Vector@2x.png"  alt="" height="16px" width="16px" style="margin-left: 45px;">
-          <span style="padding-left: 13px;">Log out</span>
-        </a>
-
+        </div>
       </div>
     </div>
   </div>
-
   <div class="content" style="margin-right: 20px;">
     <section layout:fragment="content">
-    <div style="display: flex; gap: 30px;">
-      <div style="padding-top: 20px;"><a href="/coached"><img src="https://justjava2.share.zrok.io/images/Back.png" alt="" width="30px" height="30px"></a></div>
-      <div>
-        <h1 style="font-size: 17px;color: #000 ; font-weight: 700">Upcoming Sessions</h1>
-        <p style="color:#646E82 ; font-size: 10px;">Here you can see all your upcoming coaches</p>
-      </div>
-    </div>
-
-    <div class="card" style="width: 100%; height: auto;padding: 20px; ">
-      <div class="row">
-        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-
-          <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px;">
-            <div style="display: flex; gap: 15px;">
-              <img src="images/mdi_calendar-outline.png" alt="" width="10.09px" height="10.09px">
-              <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >2024-06-23</h6>
-
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; gap: 15px;">
-                <img src="images/mingcute_time-line.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >10:00 AM - 11:00 AM</h6>
-              </div>
-              <div style="display: flex; gap: 15px;">
-                <img src="images/Signal.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: red;" >Live</h6>
-              </div>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; ">
-                <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
-                  <img src="https://github.com/mdo.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-
-                <div style="margin-left: 8px;">
-                  <h3 style="font-size: 12px; color: #333; font-weight: 400;">Marie Palito</h3>
-                  <div style="display: flex; gap: 10px;">
-                    <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach </p> <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">4.5 </p>
-                    <img src="images/Star 1.png" alt="" style="padding-left: 3px;margin-top: -6.5px; height: 10px; width: 10px;">
-                  </div>
-
-                </div>
-              </div>
-              <img src="images/chat-alt-2.png" alt="" height="11.09px" width="11.09px">
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div>
-                <div style="display: flex;">
-                  <img class="small-picture" src="images/woman pic.png" alt="" style="margin-left: 0px;">
-                  <img class="small-picture" src="images/Rectangle 1782.png" alt="">
-                  <img class="small-picture" src="https://github.com/mdo.png" alt="">
-                  <img class="small-picture" src="images/Rectangle 1781.png" alt="">
-                  <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;">+6</div>
-                </div>
-                <p style="font-size: 10px;color: #646E82;">16 Coachees</p>
-              </div>
-              <div><a href="" style="color: red; font-size: 10px;">View Coachees</a></div>
-            </div>
-            <hr>
-            <div style="display: flex; justify-content: space-between;">
-              <p style="font-size: 10px; color: #646E82 ;"><img src="images/information-circle.png" alt="" width="10px" height="10px"> You are not a participant on this session</p>
-              <img src="images/dots.png" alt="" width="3px" height="10px">
-            </div>
-          </div>
-        </div>
-        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-
-          <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px;">
-            <div style="display: flex; gap: 15px;">
-              <img src="images/mdi_calendar-outline.png" alt="" width="10.09px" height="10.09px">
-              <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >2024-06-23</h6>
-
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; gap: 15px;">
-                <img src="images/mingcute_time-line.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >10:00 AM - 11:00 AM</h6>
-              </div>
-              <div style="display: flex; gap: 15px;">
-                <img src="images/Signal.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: red;" >Live</h6>
-              </div>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; ">
-                <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
-                  <img src="https://github.com/mdo.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-
-                <div style="margin-left: 8px;">
-                  <h3 style="font-size: 12px; color: #333; font-weight: 400;">Marie Palito</h3>
-                  <div style="display: flex; gap: 10px;">
-                    <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach </p> <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">4.5 </p>
-                    <img src="images/Star 1.png" alt="" style="padding-left: 3px;margin-top: -6.5px; height: 10px; width: 10px;">
-                  </div>
-
-                </div>
-              </div>
-              <img src="images/chat-alt-2.png" alt="" height="11.09px" width="11.09px">
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div>
-                <div style="display: flex;">
-                  <img class="small-picture" src="images/woman pic.png" alt="" style="margin-left: 0px;">
-                  <img class="small-picture" src="images/Rectangle 1782.png" alt="">
-                  <img class="small-picture" src="https://github.com/mdo.png" alt="">
-                  <img class="small-picture" src="images/Rectangle 1781.png" alt="">
-                  <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;">+6</div>
-                </div>
-                <p style="font-size: 10px;color: #646E82;">16 Coachees</p>
-              </div>
-              <div><a href="" style="color: red; font-size: 10px;">View Coachees</a></div>
-            </div>
-            <hr>
-            <div style="display: flex; justify-content: space-between;">
-              <p style="font-size: 10px; color: #646E82 ;"><img src="images/information-circle.png" alt="" width="10px" height="10px"> You are not a participant on this session</p>
-              <img src="images/dots.png" alt="" width="3px" height="10px">
-            </div>
-          </div>
-        </div>
-        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-
-          <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px;">
-            <div style="display: flex; gap: 15px;">
-              <img src="images/mdi_calendar-outline.png" alt="" width="10.09px" height="10.09px">
-              <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >2024-06-23</h6>
-
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; gap: 15px;">
-                <img src="images/mingcute_time-line.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >10:00 AM - 11:00 AM</h6>
-              </div>
-              <div style="display: flex; gap: 15px;">
-                <img src="images/Signal.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: red;" >Live</h6>
-              </div>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; ">
-                <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
-                  <img src="https://github.com/mdo.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-
-                <div style="margin-left: 8px;">
-                  <h3 style="font-size: 12px; color: #333; font-weight: 400;">Marie Palito</h3>
-                  <div style="display: flex; gap: 10px;">
-                    <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach </p> <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">4.5 </p>
-                    <img src="images/Star 1.png" alt="" style="padding-left: 3px;margin-top: -6.5px; height: 10px; width: 10px;">
-                  </div>
-
-                </div>
-              </div>
-              <img src="images/chat-alt-2.png" alt="" height="11.09px" width="11.09px">
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div>
-                <div style="display: flex;">
-                  <img class="small-picture" src="images/woman pic.png" alt="" style="margin-left: 0px;">
-                  <img class="small-picture" src="images/Rectangle 1782.png" alt="">
-                  <img class="small-picture" src="https://github.com/mdo.png" alt="">
-                  <img class="small-picture" src="images/Rectangle 1781.png" alt="">
-                  <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;">+6</div>
-                </div>
-                <p style="font-size: 10px;color: #646E82;">16 Coachees</p>
-              </div>
-              <div><a href="" style="color: red; font-size: 10px;">View Coachees</a></div>
-            </div>
-            <hr>
-            <div style="display: flex; justify-content: space-between;">
-              <p style="font-size: 10px; color: #646E82 ;"><img src="images/information-circle.png" alt="" width="10px" height="10px"> You are not a participant on this session</p>
-              <img src="images/dots.png" alt="" width="3px" height="10px">
-            </div>
-          </div>
-        </div>
-        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-
-          <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px;">
-            <div style="display: flex; gap: 15px;">
-              <img src="images/mdi_calendar-outline.png" alt="" width="10.09px" height="10.09px">
-              <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >2024-06-23</h6>
-
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; gap: 15px;">
-                <img src="images/mingcute_time-line.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >10:00 AM - 11:00 AM</h6>
-              </div>
-              <div style="display: flex; gap: 15px;">
-                <img src="images/Signal.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: red;" >Live</h6>
-              </div>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; ">
-                <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
-                  <img src="https://github.com/mdo.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-
-                <div style="margin-left: 8px;">
-                  <h3 style="font-size: 12px; color: #333; font-weight: 400;">Marie Palito</h3>
-                  <div style="display: flex; gap: 10px;">
-                    <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach </p> <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">4.5 </p>
-                    <img src="images/Star 1.png" alt="" style="padding-left: 3px;margin-top: -6.5px; height: 10px; width: 10px;">
-                  </div>
-
-                </div>
-              </div>
-              <img src="images/chat-alt-2.png" alt="" height="11.09px" width="11.09px">
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div>
-                <div style="display: flex;">
-                  <img class="small-picture" src="images/woman pic.png" alt="" style="margin-left: 0px;">
-                  <img class="small-picture" src="images/Rectangle 1782.png" alt="">
-                  <img class="small-picture" src="https://github.com/mdo.png" alt="">
-                  <img class="small-picture" src="images/Rectangle 1781.png" alt="">
-                  <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;">+6</div>
-                </div>
-                <p style="font-size: 10px;color: #646E82;">16 Coachees</p>
-              </div>
-              <div><a href="" style="color: red; font-size: 10px;">View Coachees</a></div>
-            </div>
-            <hr>
-            <div style="display: flex; justify-content: space-between;">
-              <p style="font-size: 10px; color: #646E82 ;"><img src="images/information-circle.png" alt="" width="10px" height="10px"> You are not a participant on this session</p>
-              <img src="images/dots.png" alt="" width="3px" height="10px">
-            </div>
-          </div>
-        </div>
-        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-
-          <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px;">
-            <div style="display: flex; gap: 15px;">
-              <img src="images/mdi_calendar-outline.png" alt="" width="10.09px" height="10.09px">
-              <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >2024-06-23</h6>
-
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; gap: 15px;">
-                <img src="images/mingcute_time-line.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >10:00 AM - 11:00 AM</h6>
-              </div>
-              <div style="display: flex; gap: 15px;">
-                <img src="images/Signal.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: red;" >Live</h6>
-              </div>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; ">
-                <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
-                  <img src="https://github.com/mdo.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-
-                <div style="margin-left: 8px;">
-                  <h3 style="font-size: 12px; color: #333; font-weight: 400;">Marie Palito</h3>
-                  <div style="display: flex; gap: 10px;">
-                    <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach </p> <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">4.5 </p>
-                    <img src="images/Star 1.png" alt="" style="padding-left: 3px;margin-top: -6.5px; height: 10px; width: 10px;">
-                  </div>
-
-                </div>
-              </div>
-              <img src="images/chat-alt-2.png" alt="" height="11.09px" width="11.09px">
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div>
-                <div style="display: flex;">
-                  <img class="small-picture" src="images/woman pic.png" alt="" style="margin-left: 0px;">
-                  <img class="small-picture" src="images/Rectangle 1782.png" alt="">
-                  <img class="small-picture" src="https://github.com/mdo.png" alt="">
-                  <img class="small-picture" src="images/Rectangle 1781.png" alt="">
-                  <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;">+6</div>
-                </div>
-                <p style="font-size: 10px;color: #646E82;">16 Coachees</p>
-              </div>
-              <div><a href="" style="color: red; font-size: 10px;">View Coachees</a></div>
-            </div>
-            <hr>
-            <div style="display: flex; justify-content: space-between;">
-              <p style="font-size: 10px; color: #646E82 ;"><img src="images/information-circle.png" alt="" width="10px" height="10px"> You are not a participant on this session</p>
-              <img src="images/dots.png" alt="" width="3px" height="10px">
-            </div>
-          </div>
-        </div>
-        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-
-          <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px;">
-            <div style="display: flex; gap: 15px;">
-              <img src="images/mdi_calendar-outline.png" alt="" width="10.09px" height="10.09px">
-              <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >2024-06-23</h6>
-
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; gap: 15px;">
-                <img src="images/mingcute_time-line.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >10:00 AM - 11:00 AM</h6>
-              </div>
-              <div style="display: flex; gap: 15px;">
-                <img src="images/Signal.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: red;" >Live</h6>
-              </div>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; ">
-                <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
-                  <img src="https://github.com/mdo.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-
-                <div style="margin-left: 8px;">
-                  <h3 style="font-size: 12px; color: #333; font-weight: 400;">Marie Palito</h3>
-                  <div style="display: flex; gap: 10px;">
-                    <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach </p> <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">4.5 </p>
-                    <img src="images/Star 1.png" alt="" style="padding-left: 3px;margin-top: -6.5px; height: 10px; width: 10px;">
-                  </div>
-
-                </div>
-              </div>
-              <img src="images/chat-alt-2.png" alt="" height="11.09px" width="11.09px">
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div>
-                <div style="display: flex;">
-                  <img class="small-picture" src="images/woman pic.png" alt="" style="margin-left: 0px;">
-                  <img class="small-picture" src="images/Rectangle 1782.png" alt="">
-                  <img class="small-picture" src="https://github.com/mdo.png" alt="">
-                  <img class="small-picture" src="images/Rectangle 1781.png" alt="">
-                  <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;">+6</div>
-                </div>
-                <p style="font-size: 10px;color: #646E82;">16 Coachees</p>
-              </div>
-              <div><a href="" style="color: red; font-size: 10px;">View Coachees</a></div>
-            </div>
-            <hr>
-            <div style="display: flex; justify-content: space-between;">
-              <p style="font-size: 10px; color: #646E82 ;"><img src="images/information-circle.png" alt="" width="10px" height="10px"> You are not a participant on this session</p>
-              <img src="images/dots.png" alt="" width="3px" height="10px">
-            </div>
-          </div>
-        </div>
-        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-
-          <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px;">
-            <div style="display: flex; gap: 15px;">
-              <img src="images/mdi_calendar-outline.png" alt="" width="10.09px" height="10.09px">
-              <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >2024-06-23</h6>
-
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; gap: 15px;">
-                <img src="images/mingcute_time-line.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >10:00 AM - 11:00 AM</h6>
-              </div>
-              <div style="display: flex; gap: 15px;">
-                <img src="images/Signal.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: red;" >Live</h6>
-              </div>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; ">
-                <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
-                  <img src="https://github.com/mdo.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-
-                <div style="margin-left: 8px;">
-                  <h3 style="font-size: 12px; color: #333; font-weight: 400;">Marie Palito</h3>
-                  <div style="display: flex; gap: 10px;">
-                    <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach </p> <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">4.5 </p>
-                    <img src="images/Star 1.png" alt="" style="padding-left: 3px;margin-top: -6.5px; height: 10px; width: 10px;">
-                  </div>
-
-                </div>
-              </div>
-              <img src="images/chat-alt-2.png" alt="" height="11.09px" width="11.09px">
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div>
-                <div style="display: flex;">
-                  <img class="small-picture" src="images/woman pic.png" alt="" style="margin-left: 0px;">
-                  <img class="small-picture" src="images/Rectangle 1782.png" alt="">
-                  <img class="small-picture" src="https://github.com/mdo.png" alt="">
-                  <img class="small-picture" src="images/Rectangle 1781.png" alt="">
-                  <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;">+6</div>
-                </div>
-                <p style="font-size: 10px;color: #646E82;">16 Coachees</p>
-              </div>
-              <div><a href="" style="color: red; font-size: 10px;">View Coachees</a></div>
-            </div>
-            <hr>
-            <div style="display: flex; justify-content: space-between;">
-              <button style="margin-left: -10px; margin-top: -5px; color: white; background-color: red;width: 100%; height: 30px;text-align: center; border-radius: 10px;" ><img src="images/Video.png" alt="">Join Session</button>
-              <img src="images/dots.png" alt="" width="3px" height="10px">
-            </div>
-          </div>
-        </div>
-        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
-
-          <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px;">
-            <div style="display: flex; gap: 15px;">
-              <img src="images/mdi_calendar-outline.png" alt="" width="10.09px" height="10.09px">
-              <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >2024-06-23</h6>
-
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; gap: 15px;">
-                <img src="images/mingcute_time-line.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" >10:00 AM - 11:00 AM</h6>
-              </div>
-              <div style="display: flex; gap: 15px;">
-                <img src="images/Signal.png" alt="" width="10.09px" height="10.09px">
-                <h6 style="font-size: 10.5px; font-weight: 400; color: red;" >Live</h6>
-              </div>
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div style="display: flex; ">
-                <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
-                  <img src="https://github.com/mdo.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-
-                <div style="margin-left: 8px;">
-                  <h3 style="font-size: 12px; color: #333; font-weight: 400;">Marie Palito</h3>
-                  <div style="display: flex; gap: 10px;">
-                    <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach </p> <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">4.5 </p>
-                    <img src="images/Star 1.png" alt="" style="padding-left: 3px;margin-top: -6.5px; height: 10px; width: 10px;">
-                  </div>
-
-                </div>
-              </div>
-              <img src="images/chat-alt-2.png" alt="" height="11.09px" width="11.09px">
-            </div>
-            <div style="display: flex; justify-content: space-between;">
-              <div>
-                <div style="display: flex;">
-                  <img class="small-picture" src="images/woman pic.png" alt="" style="margin-left: 0px;">
-                  <img class="small-picture" src="images/Rectangle 1782.png" alt="">
-                  <img class="small-picture" src="https://github.com/mdo.png" alt="">
-                  <img class="small-picture" src="images/Rectangle 1781.png" alt="">
-                  <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;">+6</div>
-                </div>
-                <p style="font-size: 10px;color: #646E82;">16 Coachees</p>
-              </div>
-              <div><a href="" style="color: red; font-size: 10px;">View Coachees</a></div>
-            </div>
-            <hr>
-            <div style="display: flex; justify-content: space-between;">
-              <p style="font-size: 10px; color: #646E82 ;"><img src="images/information-circle.png" alt="" width="10px" height="10px"> You are not a participant on this session</p>
-              <img src="images/dots.png" alt="" width="3px" height="10px">
-            </div>
-          </div>
+      <div style="display: flex; gap: 30px;">
+        <div style="padding-top: 20px;"><a id="ret" href="#"><img src="/coached/Back.png" alt="" width="30px" height="30px"></a></div>
+        <div>
+          <h1 style="font-size: 17px;color: #000 ; font-weight: 700">Upcoming Sessions</h1>
+          <p style="color:#646E82 ; font-size: 10px;">Here you can see all your upcoming coaching</p>
         </div>
       </div>
-    </div>
+
+      <div class="cardi" style="width: 100%; height: auto;padding: 20px; ">
+
+        <th:block th:each="upcomingSession, i : ${upcomingSessions}">
+
+        <div class="row" >
+
+          <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6" th:each="schedule : ${upcomingSession.schedules}">
+            <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px; height: 98%;">
+              <div style="display: flex; gap: 15px;">
+                <img src="/coached/mdi_calendar-outline.png" alt="" width="10.09px" height="10.09px">
+                <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;" th:text="${#dates.format(schedule,'dd-MMMM-yyyy')}" >2022-06-23</h6>
+              </div>
+
+              <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex; gap: 15px;">
+                  <img src="/coached/mingcute_time-line.png" alt="" width="10.09px" height="10.09px">
+                  <h6 style="font-size: 10.5px; font-weight: 400; color: #646E82;">
+                    <span style="font-size: 10.5px; font-weight: 400; color: #646E82;" th:text="${#dates.hour(schedule)}">
+
+                    </span>
+                    <span style="font-size: 10.5px; font-weight: 400; color: #646E82;" th:text="${#dates.minute(schedule)} +' Clock'">
+
+                    </span>
+                  </h6>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                  <img src="/coached/Signal.png" alt="" width="10.09px" height="10.09px">
+                  <h6 style="font-size: 10.5px; font-weight: 400; color: red;" >Live</h6>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <div style="display: flex; ">
+                  <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
+                    <img src="https://github.com/mdo.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>
+
+                  <div style="margin-left: 8px;">
+                    <h3 style="font-size: 12px; color: #333; font-weight: 400;" th:text="${upcomingSession.coach.fullName}">Marie Palito</h3>
+                    <div style="display: flex; gap: 10px;">
+                      <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach </p> <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">4.5 </p>
+                      <img src="/coached/Star 1.png" alt="" style="padding-left: 3px;margin-top: -6.5px; height: 10px; width: 10px;">
+                    </div>
+
+                  </div>
+                </div>
+                <img src="/coached/chat-alt-2.png" alt="" height="11.09px" width="11.09px">
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <div>
+                  <div style="display: flex;">
+                    <img class="small-picture" src="/coached/woman pic.png" alt="" style="margin-left: 0px;">
+                    <img class="small-picture" src="/coached/Rectangle 1782.png" alt="">
+                    <img class="small-picture" src="https://github.com/mdo.png" alt="">
+                    <img class="small-picture" src="/coached/Rectangle 1781.png" alt="">
+                    <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;">+6</div>
+                  </div>
+                  <p style="font-size: 10px;color: #646E82;" th:text="${upcomingSession.totalCoachees}+' Coaches'">16 Coachees</p>
+                </div>
+                <div>
+                  <a class="modal_link" th:href="@{'/coacheeAssessmentList/'+${upcomingSession.id}}"
+                     style="color: red; font-size: 10px;">View Coachees
+                  </a>
+                </div>
+              </div>
+              <hr>
+
+              <div style="display: flex; justify-content: space-between;">
+                <button th:id="gotomeeting" th:name="${upcomingSession.id}"
+                        th:onclick="'gotomeeting('+${upcomingSession.id}+')'"
+                        th:style = "${schedule.compareTo(#dates.createNow())>=0} ?
+                        'margin-left: -10px; margin-top: -5px; color: white;'+
+                        'background-color:red; width: 100%; height: 30px;text-align: center;border-radius: 10px;'
+                         :
+                         'margin-left: -10px; margin-top: -5px; color: white;'+
+                        'background-color:green; width: 100%; height: 30px;text-align: center;border-radius: 10px;'"
+
+                        th:disabled="${schedule.compareTo(#dates.createNow())}>=0">
+                  <img src="/coached/Video.png" alt="">Join Session
+                  <!--<span th:text="${schedule.compareTo(#dates.createNow())}"></span>-->
+
+                </button>
+                <img src="/coached/dots.png" alt="" width="3px" height="10px">
+              </div>
+            </div>
+          </div>
+        </div>
+        </th:block>
+
+      </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script>
+        $('#ret').click(function (){
+          window.history.back()
+        })
+      </script>
 
     </section>
   </div>
 </div>
+</section>
 </div>
+<!--<script src="main.js"></script>-->
 <!-- Code injected by live-server -->
 <script>
   // <![CDATA[  <-- For SVG support

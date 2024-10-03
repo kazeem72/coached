@@ -24,9 +24,14 @@ public class Organization {
     @JoinColumn(name = "org_admin_id")
     private Coachee orgAdmin;
 
-    @OneToMany(mappedBy = "organization",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "organization",
+            cascade = CascadeType.ALL)
     private List<Coachee> coachees = new ArrayList<>();
 
+
+    public Integer getTotalEmployee(){
+        return coachees.size();
+    }
     @OneToMany(mappedBy = "organization", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Invoice> invoices = new ArrayList<>();
 
@@ -40,4 +45,5 @@ public class Organization {
         invoices.add(invoice);
         return this;
     }
+
 }

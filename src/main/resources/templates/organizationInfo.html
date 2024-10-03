@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout/base_layout}" xmlns="http://www.w3.org/1999/html">
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="/coached/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<div class="header py-0">
+  <div class="header py-0">
+    <div class="px-4 py-0  border-bottom">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+            <img src="/coached/CoachedLogo.svg" class="bi me-2" width="120" height="120" role="img" aria-label="Bootstrap"/><span style="color: red; font-size: 17px; font-weight:600;">EZ37</span>
+          </a>
+
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+
+
+            <li>
+              <a href="#" class="nav-link text-white">
+                <img src="/coached/Top Nav/Vector.png" class="bi d-block mx-auto mb-1" width="28" height="28"/>
+
+              </a>
+            </li>
+
+
+            <li>
+              <a href="#" class="nav-link text-white">
+                <div style="display: flex; border-left: 2px solid rgba(0, 0, 0, 0.043);padding-left: 20px; ">
+                  <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
+                    <img src="/coached/woman pic.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>
+                  <div style="margin-left: 8px;">
+                    <h3 style="font-size: 16px; color: #333;">Adams Wheeler</h3>
+                    <p style="font-size: 10px; color:red; margin-top: -8px;">Admin</p>
+
+                  </div>
+
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar overflow-auto">
+    <div class="d-flex flex-column flex-shrink-0 " style="width: 200px;  ">
+
+      <ul class="nav nav-pills flex-column mb-auto" style="padding-top:30px ; gap: 10px;">
+        <li>
+          <a href="adminOverview.html" class="nav-link link-body-emphasis">
+            <img src="/coached/mage_dashboard-fill.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="adminCoaches.html" class="nav-link link-body-emphasis">
+            <img src="/coached/Vector.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Coaches</span>
+          </a>
+        </li>
+        <li>
+          <a href="adminCoachees.html" class="nav-link link-body-emphasis">
+            <img src="/coached/fluent_laptop-person-24-filled.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Coachees</span>
+          </a>
+        </li>
+        <li class="nav-item"  >
+          <a href="organisations.html" class="nav-link active" aria-current="page">
+            <img src= "/coached/organisationRed.png"  alt="" height="16px" width="16px" style="margin-left: 41px;">
+            <span style="padding-left: 13px; color: red;">Organisation</span>
+          </a>
+        </li>
+        <li>
+          <a href="adminInvoice.html" class="nav-link link-body-emphasis">
+            <img src="/coached/Home/basil_invoice-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Invoices</span>
+          </a>
+        </li>
+        <li>
+          <a href="adminResources.html" class="nav-link link-body-emphasis">
+            <img src="/coached/resources.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Resources</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="adminSessionHistory.html" class="nav-link link-body-emphasis">
+            <img src="/coached/Home/tabler_history.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Session History</span>
+          </a>
+        </li>
+
+      </ul>
+
+      <div class="dropdown" style="padding-top:74px ;">
+        <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none ">
+          <img src="/coached/Home/Vector@2x.png"  alt="" height="16px" width="16px" style="margin-left: 45px;">
+          <span style="padding-left: 13px;">Log out</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content">
+
+  <section layout:fragment="content">
+  <h1 style="font-size: 17px;color: #000 ; font-weight: 700"><a id="pre" href="#">
+    <img src="/coached/Back.png" alt="" width="20px" height="20px"></a> Back</h1>
+
+  <div class="cardi" style="padding-top: 10px; padding-left: 20px; padding-right: 20px;padding-bottom: 10px;">
+    <h3 style="color: #646E82; font-size: 12px; font-weight: 600;">Basic Information</h3>
+    <div class="card" style="padding-top: 10px; padding-left: 20px; padding-right: 20px;padding-bottom: 10px;">
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+
+        <div style="border-left: 2px solid red; padding: 5px;">
+          <h6 class="username" style="font-size: 12px;">Company Name</h6>
+          <p class="email" style="font-size: 10px;" th:text="${organization.name}">Just Java Limited</p>
+        </div>
+        <div style="border-left: 2px solid red; padding: 5px;">
+          <h6 class="username" style="font-size: 12px;">Phone Number</h6>
+          <p class="email" style="font-size: 10px;">08053357556</p>
+        </div>
+        <div style="border-left: 2px solid #ED1B24; padding: 5px;">
+          <h6 class="username" style="font-size: 12px;">Email Address</h6>
+          <p class="email" style="font-size: 10px;" th:text="${organization.email}">ogundipedamillola.funmi@gmail.com</p>
+        </div>
+        <div style="border-left: 2px solid red; padding: 5px;">
+          <h6 class="username" style="font-size: 12px;">Administrator</h6>
+          <p class="email" style="font-size: 10px;" th:text="${organization.orgAdmin.fullName}">Tommy Brady</p>
+        </div>
+        <div style="border-left: 2px solid red; padding: 5px;">
+          <h6 class="username" style="font-size: 12px;">Focus Areas</h6>
+          <p class="email" style="font-size: 10px;">Leadership | Communication | Business | Health</p>
+        </div>
+      </div>
+    </div>
+    <p style=" font-size: 12px; color: #646E82; font-weight: 600;">All Employees (10)</p>
+    <div style="overflow-x: auto; margin: 20px auto; width: 100%;">
+
+      <table class="table" style="width: 100%; border: 1px solid #ccc; border-collapse: collapse;">
+        <thead>
+        <tr  style="font-size: 11px; text-wrap:nowrap;text-align: center;">
+          <th scope="col">Image</th>
+          <th scope="col">Name</th>
+          <th scope="col">Email Address</th>
+
+          <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody >
+        <tr th:each="employee :${organization.getCoachees()}">
+          <td style="display: flex;justify-content: center;">
+            <div class="profile-card">
+              <div class="profile-pic">
+                <img src="https://github.com/mdo.png" alt="Profile Picture">
+              </div>
+            </div>
+          </td>
+          <td style="font-size: 9px;text-align: center;" th:text="${employee.fullName}">Akinrinde</td>
+
+          <td style="font-size: 9px; text-align: center;" th:text="${employee.email}">akinrindeakinkunmi@gmail.com</td>
+          <td style="text-align: center;">
+            <button style="border: none; font-size: 9px; background-color: rgb(222, 241, 222); color: #21A86A; border-radius: 10px; width: 76px; height: 23px;">Joined</button></td>
+        </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+      $('#pre').click(function (){
+        window.history.back()
+      })
+    </script>
+  </section>
+</div>
+</div>
+</div>
+<!-- Code injected by live-server -->
+<script>
+  // <![CDATA[  <-- For SVG support
+  if ('WebSocket' in window) {
+    (function () {
+      function refreshCSS() {
+        var sheets = [].slice.call(document.getElementsByTagName("link"));
+        var head = document.getElementsByTagName("head")[0];
+        for (var i = 0; i < sheets.length; ++i) {
+          var elem = sheets[i];
+          var parent = elem.parentElement || head;
+          parent.removeChild(elem);
+          var rel = elem.rel;
+          if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+          }
+          parent.appendChild(elem);
+        }
+      }
+      var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+      var address = protocol + window.location.host + window.location.pathname + '/ws';
+      var socket = new WebSocket(address);
+      socket.onmessage = function (msg) {
+        if (msg.data == 'reload') window.location.reload();
+        else if (msg.data == 'refreshcss') refreshCSS();
+      };
+      if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+        console.log('Live reload enabled.');
+        sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+      }
+    })();
+  }
+  else {
+    console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+  }
+  // ]]>
+</script>
+</body>
+</html>

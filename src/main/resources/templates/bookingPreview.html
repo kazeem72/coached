@@ -1,15 +1,19 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Urbanist" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script th:inline="javascript">
         $(document).ready(function() {
-            $('#openModal').on('click',function(){
-                $('.modal-body').load('/coached/booking',function(){
-                    $('#bookModal').modal("show");
+            $('#bookConfirm').on('click',function(){
+                $('.modal-body').load('/coached/bookSession',function(){
+                    $('#confirm-modal').modal("show");
                 });
             });
 
@@ -17,41 +21,61 @@
     </script>
 </head>
 <body>
-<div class="modal-body">
+<div class="modal-body" id="confirm-modal">
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     <div style="padding:20px; height: 100%; width: 100%;">
         <h1 style="font-size: 16px;  font-weight: 700;">Preview and Submit</h1>
         <p style="color: #ED1B24; font-size: 12px; margin-top: 40px; font-weight: 500;">Coach</p>
         <div style="display: flex; gap: 37px; flex-wrap: wrap;">
             <div>
-                <img src="https://justjava2.share.zrok.io/images/standing man.svg" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 20%; object-fit: cover;">
+                <img th:src="@{'/'+${coach.myDisplayPicture}}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 20%; object-fit: cover;">
             </div>
             <div style="margin-top: 10px;">
-                <h2 style="font-size: 15px; color:black;font-weight: 400;">Tommy Oliver</h2>
-                <p style="font-size: 8px; color:#000;">10 Years Experience <br>5.0</p>
+                <h2 style="font-size: 15px; color:black;font-weight: 400;" th:text="${coach.fullName}">Tommy Oliver</h2>
+                <p style="font-size: 8px; color:#000;" th:text="${coach.experience} + ' Years Experience'">10 Years Experience <br>5.0</p>
 
             </div>
             <div style="margin-top: 10px;">
                 <h2 style="font-size: 10px;color: black; font-weight: 700;">Focus Areas</h2>
-                <p style="font-size: 8px; color: black;border-left: 1px solid red;padding-left: 3px;">Ledership | Communication | <br> Business | Health | Development </p>
+                <p style="font-size: 8px; color: black;border-left: 1px solid red;padding-left: 3px;">
+                    <th:block th:each="focus, i : ${coach.focusArea}">
+                        <span style="font-size: 10px;" th:text="${focus}"> Leadership </span> |
+                    </th:block>
+                </p>
             </div>
         </div>
         <hr>
         <div class="row" style="--bs-gutter-x: 2.5rem">
             <div class="col-6">
                 <h2 style="font-size: 12px; color: red; font-weight: 500;">Meeting Type</h2>
-                <p style="font-size: 12px; color: black;">One to Many (<span style="color: #646E82;">2 hours/session</span>)</p>
+                <p style="font-size: 12px; color: black;" th:text="${bookingPreview.display}">One to Many (<span style="color: #646E82;">2 hours/session</span>)</p>
             </div>
             <div class="col-6">
                 <h2 style="font-size: 12px; color: red; font-weight: 500;">Session Frequency</h2>
-                <p style="font-size: 12px; color: black;">12 <span style="color: #646E82;">sessions</span></p>
+                <p style="font-size: 12px; color: black;" th:text="${bookingPreview.frequency}">12 <span style="color: #646E82;">sessions</span></p>
             </div>
         </div>
         <div class="row" style="--bs-gutter-x: 2.5rem">
             <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12">
-                <h2 style="font-size: 12px; color: red; font-weight: 500;">Added Coachees (7)</h2>
-                <ul id="preview" class="list-group overflow-auto">
+                <h2 style="font-size: 12px; color: red; font-weight: 500;" th:text="'Added Coachees ('+${employees.size()} + ')'">Added Coachees (7)</h2>
 
+                <ul id="preview" class="list-group overflow-auto" th:each="employee : ${employees}">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div id="laddItem2">
+                            <div class="ms-2 me-auto">
+                                <div class="profile-card">
+                                    <div class="profile-pic">
+                                        <img th:src="@{'/'+${employee.myDisplayPicture}}" alt="Profile Picture">
+                                    </div>
+                                    <div class="profile-info" style="margin-left: -10px;">
+                                        <div class="username" style="font-size: 9px;" th:text="${employee.fullName}">Ogunise Damila</div>
+                                        <div class="email" style="font-size: 8px;" th:text="${employee.email}">ogunisedami.@gmail.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </li>
 
                 </ul>
             </div>
@@ -68,7 +92,6 @@
 <div class="modal-footer">
     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 142px; height: 36px; border-radius: 5px; background-color: white;color: red; font-weight: 500; font-size: 12px;border: 1px solid #666; " >Back</button>
     <button id="bookConfirm" type="button" class="btn" style="width: 142px; height: 36px; border-radius: 5px; background-color: red;color: white; font-weight: 500; font-size: 12px;">Continue</button>
-
 </div>
 
 <script src="main.js"></script>

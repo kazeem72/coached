@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout/base_layout}" xmlns="http://www.w3.org/1999/html">
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Urbanist" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <script th:inline="javascript">
+
+      $(document).ready(function() {
+
+          $('.modal_link').on('click',function(event){
+            event.preventDefault();
+            let link = this.href;
+
+            //alert(' The link here =='+link);
+
+            $('.modal-content').load(link,function(){
+              $('#bookModal').modal("show");
+            });
+          });
+    });
+  </script>
+</head>
+<body>
+<section layout:fragment="content">
+<div style="display: flex; gap: 30px;">
+  <div style="padding-top: 20px;"><a id="main" href="#"><img src="/coached/Back.png" alt="" width="30px" height="30px"></a></div>
+  <div>
+    <h1 style="font-size: 17px;color: #000 ; font-weight: 700">Ongoing Bookings</h1>
+    <p style="color:#646E82 ; font-size: 10px;">You can view,pay and schedule sessions for all the bookings initiated</p>
+  </div>
+</div>
+
+<div class="cardi" style="width: 100%; height: auto;padding: 20px; ">
+  <div class="row">
+
+    <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-6" th:each="ongoingBooking : ${ongoingBookings}">
+
+      <div class="card" style="padding-left: 30px; padding-top: 30px; padding-right: 30px; height: auto;padding-bottom: 30px; height: 98%;">
+
+
+        <div style="display: flex; justify-content: space-between;">
+          <div style="display: flex; ">
+            <div style="width: 26px; height:26px; border-radius: 50%; overflow: hidden;">
+              <img th:src="@{'/'+${ongoingBooking.coach.myDisplayPicture}}" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+
+            <div style="margin-left: 8px;">
+              <h3 style="font-size: 12px; color: #333; font-weight: 400;" th:text="${ongoingBooking.coach.fullName}">Marie Palito</h3>
+              <div style="display: flex; gap: 10px;">
+                <p style="font-size: 8px; color:#646E82; margin-top: -8px;font-weight: 400;">Coach
+                  <span style="font-size: 10px; color: red;" th:if="${!ongoingBooking.coach.diaryFilled}">
+                    Availability not yet filled
+                  </span>
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <p style="font-size: 8px; color:#646E82; font-weight: 400;">4.5
+            <img src="/coached/Star 1.png" alt="" style=" height: 10px; width: 11px;"></p>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <div>
+<!--            <div style="display: flex;">
+              <img class="small-picture" src="/coached/woman pic.png" alt="" style="margin-left: 0px;">
+              <img class="small-picture" src="/coached/Rectangle 1782.png" alt="">
+              <img class="small-picture" src="https://github.com/mdo.png" alt="">
+              <img class="small-picture" src="/coached/Rectangle 1781.png" alt="">
+              <div class="small-picture"  style="background-color: white; font-size: xx-small;text-align: center;padding-top: 4px; border: 1px solid black;"></div>
+            </div>-->
+
+            <p style="font-size: 10px;color: #646E82;" th:text="${ongoingBooking.sessionCoachees.size()}+' Coachee(s)'">16 Coachees</p>
+          </div>
+          <div style="font-size: 10px; color: #646E82;"><img src="/coached/mdi_calendar-outline.png" alt="" height="10px" width="10px" th:text="${ongoingBooking.frequency} + ' Sessions'"></div>
+        </div>
+        <p style="font-size: 8px; color:darkblue; font-weight: 100;">All sessions expires on August 20, 2026</p>
+        <hr style="margin-top: -10px;">
+
+
+        <a class="modal_link" id="invoiceOpen"
+           style="font-size: 10px; color: red;"
+           th:href="@{'/pendingInvoice/' + ${ongoingBooking.id}}"
+           th:if="${!ongoingBooking.invoice.paid && (orgAdmin ||
+           #strings.equalsIgnoreCase(session.userType,'Direct Coachee'))}">
+          <img src="/coached/Question.png" alt="" width="10px" height="10px">
+          <span style="font-size: 10px; color: red;">Make Payment</span>
+        </a>
+        <h6 style="font-size: 10px; color: #646E82;"
+            th:if="${ongoingBooking.invoice.paid}">Paid</h6>
+        <a class="modal_link" th:href="@{'/coachingAgreement/'+${ongoingBooking.id}}"
+           style="font-size: 10px; color: red;" th:if="${!ongoingBooking.orgAgreement.signed &&
+           (orgAdmin||#strings.equalsIgnoreCase(session.userType,'Direct Coachee'))}">
+          <img src="/coached/Question.png" alt="" width="10px"
+                                                     height="10px"><span style="font-size: 10px;
+                                                     color: red;">Sign Coaching agreement</span>
+        </a>
+        <a class="modal_link" th:href="@{'/coachingAgreement/'+${ongoingBooking.id}}"
+           style="font-size: 10px; color: red;" th:if="${!ongoingBooking.coachAgreement.signed && #strings.equalsIgnoreCase(userType,'coach')}">
+          <img src="/coached/Question.png" alt="" width="10px"
+               height="10px"><span style="font-size: 10px;
+                                                     color: red;">Sign Coaching agreement</span>
+        </a>
+        <h6 style="font-size: 10px; color: #646E82;"
+            th:if="${ongoingBooking.orgAgreement.signed &&
+            (orgAdmin ||#strings.equalsIgnoreCase(session.userType,'Direct Coachee'))}">
+          Agreement Signed</h6>
+
+        <h6 style="font-size: 8px; color: #646E82;" th:if="${!ongoingBooking.canSchedule &&
+         (orgAdmin || #strings.equalsIgnoreCase(session.userType,'Direct Coachee'))}">
+        <img src="/coached/information-circle.png" alt="" width="10px" height="10px">
+          <span style="font-size: 8px; color: #646E82;" th:text="${ongoingBooking.totalCoacheeAlreadySigned}">3</span>
+          <span style="font-size: 8px; color: #646E82;" >of</span>
+          <span style="font-size: 8px; color: #646E82;" th:text="${ongoingBooking.totalCoachees}">16</span>
+          <span style="font-size: 8px; color: #646E82;">filled assesment form</span>
+          <a class="modal_link"
+             th:href="@{'/coacheeAssessmentList/'+${ongoingBooking.id}}"
+             style="color: red; font-size: 10px;">View Detais</a>
+        </h6>
+
+      <!--  <hr style="margin-top: -10px;" th:if="${ongoingBooking.canSchedule}">-->
+        <a class="modal_link" th:href="@{'/schedule/' + ${ongoingBooking.id}}"
+            style="font-size: 10px; color: red;" th:disabled="${!ongoingBooking.coach.diaryFilled}"
+           th:if="${ongoingBooking.canSchedule &&
+           (orgAdmin || #strings.equalsIgnoreCase(session.userType,'Direct Coachee'))}">
+          <img src="/coached/Question.png" alt="" width="10px" height="10px">
+          <span style="font-size: 10px; color: red;" >
+            Proceed to Schedule
+          </span>
+        </a>
+
+        <a class="modal_link" th:href="@{'/assesment/' + ${ongoingBooking.id}+'/'+ ${email}}"
+           style="font-size: 10px; color: red;" th:if="${!#strings.equalsIgnoreCase(userType,'coach')}">
+          <img src="/coached/Question.png" alt="" width="10px" height="10px">
+          <span style="font-size: 10px; color: red;" >
+            Fill Assessment Form
+          </span>
+        </a>
+        <!--<hr style="margin-top: -10px;" th:if="${ongoingBooking.canSchedule}">-->
+      </div>
+    </div>
+  </div>
+</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $('#main').click(function (){
+      window.history.back()
+    })
+  </script>
+<!--<script src="main.js"></script>-->
+</section>
+</body>
+</html>

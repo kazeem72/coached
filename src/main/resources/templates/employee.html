@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script th:inline="javascript">
+
+      $(document).ready(function() {
+      $('#employeeForm').submit(function(event) {
+        event.preventDefault();
+
+        $('#addEmployee').css('backgroundColor','#ED1B244D')
+        $('#addEmployee').css('cursor','progress')
+        $('#addEmployee').removeAttr('form')
+        var $form = $(this);
+        var $target = $($form.attr('data-target'));
+
+        //alert(' The data element====='+$form.serialize());
+
+        $.ajax({
+          url: $form.attr('action'),
+          type: $form.attr('method'),
+          data: $form.serialize(),
+          success: function(response) {
+
+            //alert(" Response Here=="+response);
+            window.open('/coached/employees');
+          },
+          error: function(error) {
+            // Handle the error
+            //x.style.display = "none";
+          }
+        });
+      });
+
+    });
+  </script>
+
+</head>
+<body>
+
+<div class="modal-body">
+  <button type="button" class="btn-close btn-close-black" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div style="background-color:white;padding: 20px; height: 100%; width: 100%;">
+    <h1 style="font-size: 16px; text-align: center; font-weight: 700;">Add New Employee</h1>
+
+      <form id="employeeForm" style="margin-top: 30px;"  method="POST"  th:action="@{/employees}"  data-target="#booking-modal" th:object="${employeeDTO}">
+
+      <div class="row" style="--bs-gutter-x: 1rem">
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" required>
+          </div>
+
+        </div>
+        <div class="col-6">
+          <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" required>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="" style="width: 142px; height: 36px; border-radius: 5px; background-color: white;color: red; font-weight: 500; font-size: 12px;border: 1px solid #666; " >Cancel</button>
+    <button id="addEmployee" form="employeeForm" type="submit" class="btn" style="width: auto; height: 36px; border-radius: 5px;
+   background-color: red;color: white; font-weight: 500; font-size: 12px;">Add Employee</button>
+  </div>
+</div>
+
+
+
+
+<!--<script src="main.js"></script>-->
+<!-- Code injected by live-server -->
+<script>
+  // <![CDATA[  <-- For SVG support
+  if ('WebSocket' in window) {
+    (function () {
+      function refreshCSS() {
+        var sheets = [].slice.call(document.getElementsByTagName("link"));
+        var head = document.getElementsByTagName("head")[0];
+        for (var i = 0; i < sheets.length; ++i) {
+          var elem = sheets[i];
+          var parent = elem.parentElement || head;
+          parent.removeChild(elem);
+          var rel = elem.rel;
+          if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+          }
+          parent.appendChild(elem);
+        }
+      }
+      var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+      var address = protocol + window.location.host + window.location.pathname + '/ws';
+      var socket = new WebSocket(address);
+      socket.onmessage = function (msg) {
+        if (msg.data == 'reload') window.location.reload();
+        else if (msg.data == 'refreshcss') refreshCSS();
+      };
+      if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+        console.log('Live reload enabled.');
+        sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+      }
+    })();
+  }
+  else {
+    console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+  }
+  // ]]>
+</script>
+</body>
+</html>
+
+

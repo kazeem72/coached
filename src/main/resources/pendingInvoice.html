@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Urbanist" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- <script th:inline="javascript">
+     $(document).ready(function() {
+
+       $('#bookConfirm').on('click',function(){
+         $('.modal-body').load('/coached/bookSession',function(){
+           $('#confirm-modal').modal("show");
+         });
+       });
+
+     });
+   </script>-->
+</head>
+<body>
+<div class="modal-body">
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div style="padding: 25px;height: 100%; width: 100%;">
+    <div style="display: flex; justify-content: space-between;">
+      <div><h6 style="font-size: 15px; color: black;font-weight: 600;">Invoice <button style="border: none; font-size: 9px; color:orange;background-color: rgb(232, 232, 207); border-radius: 10px; width: 76px; height: 23px;">Pending</button>
+        <span style="color: red; font-weight: 400; font-size: 12px;margin-left: 30px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
+          </svg>
+                  <a th:href="@{'/pdf/' + ${invoiceSession.id}}"  style="font-size: 10px; color: red;">
+                    <span style="font-size: 10px; color: red;">
+                      Download Invoice
+                    </span>
+                  </a>
+        </span>
+      </h6>
+      </div>
+
+      <div><img src="/coached/CoachedLogo.svg" alt="" height="20px"></div>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+      <div>
+        <h6 style="font-size: 12px; color: #646E82; font-weight: 600;" th:text="'Invoice Number '+${invoiceSession.invoice.displayNumber}">Invoice Number <span style="color: black; font-size: 12px;margin-left: 30px;">#45667</span></h6>
+        <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Date Issued <span style="color: black; font-size: 12px;margin-left: 30px;" th:text="${invoiceSession.invoice.issueDate}">June 4, 2024</span></h6>
+        <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Due Date <span style="color: black; font-size: 12px;margin-left: 30px;" th:text="${invoiceSession.invoice.dueDate}">June 4, 2026</span></h6>
+
+      </div>
+      <div>
+        <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Billed To</h6>
+        <p style="font-size: 11px;color: black;font-weight: 600;" th:text="${invoiceSession.invoice.issueTo}">Ogundipe Damilola</p>
+      </div>
+    </div>
+    <hr>
+    <div style="display: flex; justify-content: space-between;">
+      <div>
+        <p style="color: black; font-size: 12px; font-weight: 500;">Coach</p>
+        <div style="display: flex; gap: 37px; flex-wrap: wrap;">
+          <div>
+            <img src="/coached/standing man.svg" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 20%; object-fit: cover;">
+          </div>
+          <div style="margin-top: 10px;">
+            <h2 style="font-size: 15px; color:black;font-weight: 400;" th:text="${invoiceSession.coach.fullName}">Tommy Oliver</h2>
+            <p style="font-size: 8px; color:#000;" th:text="${invoiceSession.coach.experience} +' Years Experience'">10 Years Experience <br>5.0</p>
+
+          </div>
+          <div style="margin-top: 10px;">
+            <h2 style="font-size: 10px;color: black; font-weight: 700;">Focus Areas</h2>
+            <p style="font-size: 8px; color: black;border-left: 1px solid red;padding-left: 3px;">Ledership | Communication | <br> Business | Health | Development </p>
+          </div>
+        </div>
+        <hr>
+        <div style="display: flex; justify-content: space-between;">
+          <div>
+            <h1 style="color: black; font-size: 12px; font-weight: 500;">Meeting Type</h1>
+            <p style="font-size: 10px; font-weight: 400;" th:text="${invoiceSession.manyToOne}?'Many to One':'One to Many'">One to One (<span style="font-size: 10px;font-weight: 400;color: #646E82;">45 minutes/session</span>)</p>
+          </div>
+          <div>
+            <h1 style="color: black; font-size: 12px; font-weight: 500;" >Session Frequency</h1>
+            <p style="font-size: 10px; font-weight: 400;"th:text="${invoiceSession.frequency}" >12 <span style="font-size: 10px;font-weight: 400;color: #646E82;"> Sessions</span></p>
+          </div>
+          <div>
+            <h1 style="color: black; font-size: 12px; font-weight: 500;">Session Expiry Date</h1>
+            <p style="font-size: 10px; font-weight: 400;">August 31, 2025</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="color: black; font-size: 12px; font-weight: 500;">Payment</p>
+        <ul class="list-group list-group-flush">
+
+          <li class="list-group-item"></li>
+          <li class="list-group-item"><div style="display: flex; justify-content: space-between;">
+            <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Sub total </h6><h6 style="color: black; font-size: 12px;margin-left: 30px;" th:text="'NGN '+${invoiceSession.invoice.amountDue}">NGN 20,000</h6>
+          </div></li>
+          <li class="list-group-item"><div style="display: flex; justify-content: space-between;">
+            <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Tax (0% on NGN 20,000) </h6><h6 style="color: black; font-size: 12px;margin-left: 30px;">NGN 0</h6>
+          </div></li>
+          <li class="list-group-item"><div style="display: flex; justify-content: space-between;">
+            <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Amount Due </h6><h6 style="color: red; font-size: 12px;margin-left: 30px;" th:text="'NGN '+${invoiceSession.invoice.amountDue}">NGN 20,000</h6>
+          </div></li>
+          <li class="list-group-item"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 142px; height: 36px; border-radius: 5px; background-color: white;color: red; font-weight: 500; font-size: 12px;border: 1px solid #666; " >Cancel</button>
+  <button type="button" onclick="function pay() {
+    //alert('Here clicked ');
+  }
+  pay()" class="btn" style="width: auto; height: 36px; border-radius: 5px; background-color: red;color: white; font-weight: 500; font-size: 12px;">Proceed to Checkout</button>
+</div>
+<!--<script src="main.js"></script>-->
+<!-- Code injected by live-server -->
+</body>
+</html>
+

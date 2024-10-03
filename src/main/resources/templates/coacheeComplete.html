@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout/base_layout}" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Urbanist' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/coached/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+       .upload-container {
+    position: relative;
+    display: inline-block;
+}
+
+.upload-button {
+    display: inline-block;
+    padding: 10px 15px 10px 15px;
+    background-color: #FEF4F4;
+    color: red;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.upload-button:hover {
+    background-color: #f4dbdb;
+}
+
+#upload {
+    display: none; /* Hide the default file input */
+}
+.checkmark{
+    color: white;
+}
+.cho{
+    background-color:#ED1B24;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: white;
+    cursor: pointer;
+}
+.raw{
+    background-color: #EBEBEB;
+    padding: 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    color: #646E82;
+    cursor: pointer;
+}
+
+html {
+    font-size: 16px; 
+}
+
+
+@media (max-width: 1200px) {
+    html {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 13px; 
+    }
+}
+
+@media (max-width: 576px) {
+    html {
+        font-size: 12px; 
+    }
+}
+.checkbox-input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function choosen(element) {
+            const checkbox = document.querySelector(`#${element.id}`);
+
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                element.classList.toggle('cho', checkbox.checked);
+                element.classList.toggle('raw', !checkbox.checked);
+            }
+            if (element.innerHTML.includes('<i class="bi bi-check2"></i>')) {
+                element.innerHTML = element.innerHTML.replace(' <i class="bi bi-check2"></i>', '');
+            } else {
+                element.innerHTML += ' <i class="bi bi-check2"></i>';
+            }
+        }
+
+        function submitForm() {
+            $('#exampleModal').modal('show')
+
+        }
+        async function postPic(){
+            const formData = new FormData();
+            const file = document.getElementById('upload').files[0];
+            formData.append('file', file);
+            const response = await fetch('/coached/editCoachee', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+            console.log(data.url);
+        }
+        $(document).ready(function() {
+
+
+        $('#back').click(function() {
+            window.history.back();
+        });
+
+
+        function checkInputs() {
+            if ($('#upload').val() !== '' &&
+                $('#uploadVid').val() !== '' &&
+                $('#biography').val() !== '' &&
+                $('.certi').val() !== '' ) {
+
+                // Change background color to red
+                $('#submit').css('background-color', 'red');
+                $('#submit').css('cursor', 'pointer')
+                // Add onclick attribute
+                $('#submit').attr('onclick', 'submitForm()');
+            } else {
+                // Revert to the original color if not all fields are filled
+                $('#submit').css('background-color', '#ED1B244D');
+                $('#submit').css('cursor', 'default')
+                // Remove the onclick attribute
+                $('#submit').removeAttr('onclick');
+            }
+            const focusAreas = document.querySelectorAll('input[name="focusArea"]');
+            const submitButton = document.querySelector('#submit');
+
+            let isAnyChecked = false;
+            focusAreas.forEach(area => {
+                if (area.checked) {
+                    isAnyChecked = true;
+                }
+            });
+
+            if (isAnyChecked) {
+                submitButton.style.backgroundColor = 'red';
+                submitButton.setAttribute('onclick', "submitForm()");
+                $('#submit').css('cursor', 'pointer')
+            } else {
+                submitButton.style.backgroundColor = '#ED1B244D';
+                submitButton.removeAttribute('onclick');
+                $('#submit').css('cursor', 'default')
+            }
+        }
+        const focusAreas = document.querySelectorAll('input[name="focusArea"]');
+        focusAreas.forEach(area => {
+            area.addEventListener('change', checkInputs);
+        });
+        // Attach event listeners to input fields
+        $('#upload').on('input', checkInputs);
+        $('#uploadVid').on('input', checkInputs);
+        $('#biography').on('input', checkInputs);
+        $('.certi').on('input', checkInputs);
+
+        // Initial check
+        checkInputs();
+
+
+
+        $('#profile').on('submit', function(event) {
+            if (this.checkValidity()) {
+                console.log('Form successfully submitted!');
+                $('#exampleModal2').modal('show')
+            } else {
+                event.preventDefault();
+            }
+        })
+
+        $('#upload').on('change', function(event) {
+            //alert('Here !!!')
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('preview');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+
+
+        });
+    </script>
+
+</head>
+<body>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <!-- modal body -->
+        <div class="modal-body">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div style="padding: 25px;height: 100%; width: 100%;">
+                <h1 style="font-size: 15px; text-align: center; font-weight: 700;">Confirmation</h1>
+                <p style="font-size: 12px; color: #646E82;text-align: center;">Please confirm that you want to submit your request to sign up  on coached </p>
+                
+               </div>
+              
+        </div>
+        <!-- end of modal body -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 122px; height: 36px; border-radius: 5px; background-color: white;color: red; font-weight: 500; font-size: 12px;">Cancel</button>
+            <button type="submit" form="othProfile" onclick="postPic()"  class="btn btn-danger"   style="width: 122px; height: 36px; border-radius: 5px; background-color: red;color: white; font-weight: 500; font-size: 12px;">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+
+
+      <div class="modal-content">
+
+        <!-- modal body -->
+        <div class="modal-body">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div style="padding: 25px;height: 100%; width: 100%;">
+                <h1 style="font-size: 15px; text-align: center; font-weight: 700;">Successful</h1>
+                <p style="font-size: 12px; color: #646E82;text-align: center;">Your request to sign up as a coach on this platform is pending review. You will receive an email to notify you about the the status of your request once it is reviewed </p>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="width: 122px; height: 36px; border-radius: 5px; background-color: red;color: white; font-weight: 500; font-size: 12px;display: flex;justify-content: center;">Ok</button>
+               </div>
+              
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+    <div class="header py-0">
+        <div class="header py-0">
+          <div class="px-4 py-0  border-bottom">
+            <div class="container">
+              <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+                  <img src="/coached/CoachedLogo.svg" class="bi me-2" width="120" height="120" role="img" aria-label="Bootstrap"/>
+                </a>
+        
+                <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+                  
+                  
+                  <li>
+                    <a href="#" class="nav-link text-white">
+                      <img src="/coached/Top Nav/Vector.png" class="bi d-block mx-auto mb-1" width="28" height="28"/>
+                      
+                    </a>
+                  </li>
+                  
+                  
+                  <li>
+                    <a href="#" class="nav-link text-white">
+                        <div style="display: flex; border-left: 2px solid rgba(0, 0, 0, 0.043);padding-left: 20px; ">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
+                                <img src="/coached/woman pic.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div style="margin-left: 8px;">
+                                <h3 style="font-size: 16px; color: #333;">Adams Wheeler</h3>
+                                <p style="font-size: 10px; color:red; margin-top: -8px;">Admin</p>
+                                
+                            </div>
+                            
+                        </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-container">
+          <button class="sidebar-toggle">
+            <span class="burger"></span>
+          </button>
+        <div class="sidebar">
+          <div class="d-flex flex-column flex-shrink-0 " style="width: 200px;  ">
+              
+              <ul class="nav nav-pills flex-column mb-auto" style="padding-top:30px ; gap: 10px;">
+                  <li>
+                      <a href="index.html" class="nav-link link-body-emphasis">
+                          <img src="/coached/mage_dashboard-fill.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+                          <span style="padding-left: 13px;">Overview</span>
+                      </a>
+                    </li>
+                <li>
+                  <a href="Employess.html" class="nav-link link-body-emphasis">
+                      <img src="/coached/Home/raphael_people.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+                      <span style="padding-left: 13px;">Employees</span>
+                  </a>
+                </li>
+                <li class="nav-item"  >
+                  <a href="#" class="nav-link active" aria-current="page">
+                  <img src="/coached/fluent_person-20-filled.png"  alt="" height="16px" width="16px" style="margin-left: 41px;">
+                    <span style="padding-left: 13px; color: red;">Coachees</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="Invoices.html" class="nav-link link-body-emphasis">
+                      <img src="/coached/Home/basil_invoice-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+                      <span style="padding-left: 13px;">Invoices</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="Sessions.html" class="nav-link link-body-emphasis">
+                      <img src="/coached/Home/tabler_history.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+                      <span style="padding-left: 13px;">Session History</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="Chats.html" class="nav-link link-body-emphasis">
+                      <img src="/coached/Home/flowbite_messages-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+                      <span style="padding-left: 13px;">Chats</span>
+                  </a>
+                </li>
+              </ul>
+              
+              <div class="dropdown" style="padding-top:80px ;">
+                <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none ">
+                  <img src="/coached/Home/Vector@2x.png"  alt="" height="16px" width="16px" style="margin-left: 45px;">
+                  <span style="padding-left: 13px;">Log out</span>
+                </a>
+               
+              </div>
+            </div>
+      </div> 
+      </div>
+
+
+
+
+      <div class="content">
+          <section layout:fragment="content">
+
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+                  <div class="modal-dialog modal-sm modal-dialog-centered">
+                      <div class="modal-content">
+                          <!-- modal body -->
+                          <div class="modal-body">
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              <div style="padding: 25px;height: 100%; width: 100%;">
+                                  <h1 style="font-size: 15px; text-align: center; font-weight: 700;">Confirmation</h1>
+                                  <p style="font-size: 12px; color: #646E82;text-align: center;">Please confirm that you want to submit your request to sign up  on coached </p>
+
+                              </div>
+
+                          </div>
+                          <!-- end of modal body -->
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 122px; height: 36px; border-radius: 5px; background-color: white;color: red; font-weight: 500; font-size: 12px;">Cancel</button>
+                              <button type="submit" form="othProfile" class="btn btn-danger"   style="width: 122px; height: 36px; border-radius: 5px; background-color: red;color: white; font-weight: 500; font-size: 12px;">Confirm</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+          <form id="othProfile" method="POST" enctype="multipart/form-data" th:action="@{/editCoachee}"  data-target="#booking-modal" th:object="${coachee}">
+
+          <div style="display: flex;gap: 10px;">
+            <div><img id="goback" src="/coached/back.svg" alt="" style="cursor: pointer;"></div>
+            <div><h2 style="font-size: 0.85rem;color: black;font-weight: 600;margin-top: 0.28rem;">Back</h2></div>
+        </div>
+        <h1 style="font-size: 1rem;color: black;font-weight: 700;margin-top:2rem ;">Let’s Know More About You</h1>
+        <div class="cardi" style="padding: 20px;height: auto;display: flex;flex-direction: column;justify-content: center;align-items: center;">
+            <div style="display: flex;justify-content: center;flex-direction: column;">
+              <div style="display: flex;justify-content: center;align-items: center;flex-direction: column;">
+              <img src="/coached/person-fill.svg" alt="" id="preview" style="border-radius: 50%;width: 8rem;height: 8rem;background-color: #D9D9D9;">
+
+
+
+              <div class="upload-container" style="margin-top: 0.4rem;">
+                <label for="upload" class="upload-button">
+                    Upload Your Picture
+                </label>
+                <input type="file" id="upload" accept="image/*" name="picture" />
+              </div>
+            </div>
+
+            <h1 style="font-size: 0.8rem;color: black;font-weight: 700;margin-top:4rem ;">Focus Areas</h1>
+
+            <div class="d-flex flex-wrap" style="gap: 8px;max-width:440px;">
+
+                <th:block th:each="focusArea : ${session.systemParameters.focusAreas}">
+
+               <label th:for="'option'+${focusAreaStat.index+1}+'Checkbox'">
+    <input type="checkbox" class="checkbox-input" name="focusArea" th:value="${focusArea}"
+           th:id="'option'+${focusAreaStat.index+1}+'Checkbox'" />
+    <div onclick="choosen(this)" class="raw" th:id="'option'+${focusAreaStat.index+1}" th:text="${focusArea}">Executive</div>
+</label>
+                </th:block>
+            </div>
+
+            <h2 style="color: #646E82;font-size: 0.75rem;margin-top: 0.5rem;">Have other interests? Please specify</h2>
+            <h2 style="color: red;font-size: 0.75rem;margin-top: 0.5rem;"><i class="bi bi-plus-square"></i> Add other interest</h2>
+            
+              <input type="button" id="submit" value="Submit" style="border: none;padding: 5px 10px 5px 10px;border-radius: 6px;color: #FFFFFF;font-size: 0.7rem;">
+            
+            </div>
+            
+            
+        </div>
+          </form>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+              <script>
+                  $('#goback').click(function (){
+                      window.history.back()
+                  })
+              </script>
+          </section>
+        </div>
+
+
+        <!-- Button trigger modal -->
+
+<!-- Modal -->
+
+    </div>
+
+</body>
+</html>

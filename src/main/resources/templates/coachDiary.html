@@ -1,0 +1,55 @@
+<!-- To be loaded into modal-content -->
+<div class="modal-header">
+    <h5 class="modal-title" id="bookingModalLabel">Create Booking Schedule</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form id="bookingForm">
+        <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date" required>
+        </div>
+        <div class="form-group">
+            <label for="time">Time</label>
+            <input type="time" class="form-control" id="time" required>
+        </div>
+
+        <button id="booking" type="submit" class="btn btn-danger" data-bs-dismiss="modal">Save</button>
+    </form>
+</div>
+<script>
+    $('#bookingForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var date = $('#date').val();
+        var time = $('#time').val();
+        var datetime = date + 'T' + time;
+
+        // Alert the scheduled time and date
+        //alert('Scheduled time and date: ' + datetime);
+
+
+
+        $('#calendar').fullCalendar('renderEvent', {
+            title: 'Avaialable',
+            start: datetime,
+            color: '#21A86A'
+        }, true);
+
+        $.post("/coached/keepDiary/"+datetime,
+            function(data, status){
+                //window.open('/coached/ongoingBookings')
+                //alert("Data: " + data + "\nStatus: " + status);
+            });
+
+        $('#bookingModal').modal('hide');
+        $(this)[0].reset();
+
+
+
+
+
+    });
+</script>

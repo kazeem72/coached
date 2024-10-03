@@ -5,47 +5,110 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/fragments/layout/base_layout}" xmlns="http://www.w3.org/1999/html">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Urbanist" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://justjava2.share.zrok.io/style.css">
+    <link rel="stylesheet" href="/coached/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coached</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="content">F
+    <div class="content">
         <section layout:fragment="content">
-            <h6  style="font-size: 17px; color: #000 ;font-family: sans-serif; font-weight: 700;">Welcome Adams</h6>
-            <p style="font-size: 10px; color: #646E82;;" th:text="${'We can’t wait to see '+#authentication.principal.attributes['orgName']+' growth through Coached'}">
+            <h6  style="font-size: 17px; color: #000 ;font-family: sans-serif; font-weight: 700;" th:text="' Welcome '+${name}">Welcome Adams</h6>
+            <p style="font-size: 10px; color: #646E82;;"
+               th:text="${'We can’t wait to see '
+               +(#authentication.principal.attributes['orgName']==null?
+            ' You ':#authentication.principal.attributes['orgName'])+' grow through Coached'}"
+               th:if="${!#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
                 We can’t wait to see Rexona PLC’s growth through Coached</p>
+            <p style="font-size: 10px; color: #646E82;;"
+               th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+                Gain visibility to happenings on coached</p>
             <div class="row">
-                <div class= " col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
-                    <div class="card">
+                <div class= " col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0"
+                     th:if="${!#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+                    <div class="cardi" style="padding: 20px;">
                         <div class="card-body">
                             <h5 style="color: #646E82;font-size: 15px; ">Total Upcoming <br>Sessions</h5>
-                            <img src="https://justjava2.share.zrok.io/images/Green clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
+                            <img src="/coached/Green clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
                             <p style="margin-top: 20px; " th:text="${upcomingSessionCount}">48</p>
                             <p style="color: #646E82; font-size: 10px;">Sessions</p>
                             <a href="/coached/upcoming_session"> <button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
-                    <div class="card">
+
+                <div class= " col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0"
+                     th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+                    <div class="cardi" style="padding: 20px;">
                         <div class="card-body">
-                            <h5 style="color: #646E82; font-size: 15px;">Total Ongoing <br>Bookings</h5>
-                            <img src="https://justjava2.share.zrok.io/images/clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
-                            <p style="margin-top: 20px;" th:text="${ongoingBookingCount}">5</p>
-                            <p style="color: #646E82; font-size: 10px;">Bookings</p>
-                            <a href="/coached/upcoming_session"><button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
+                            <h5 style="color: #646E82;font-size: 15px; ">Total Verification <br>Request</h5>
+                            <img src="/coached/Green clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
+                            <p style="margin-top: 20px; " th:text="${awaitingVerification}">48</p>
+                            <p style="color: #646E82; font-size: 10px;"></p>
+                            <a href="/coached/coachVerificationRequest"> <button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
-                    <div class="card">
+                <div class= " col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0"
+                     th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+                    <div class="cardi" style="padding: 20px;">
                         <div class="card-body">
-                            <h5 style="color: #646E82; font-size: 15px;">Total Onboarded <br>Emloyees</h5>
-                            <img src="https://justjava2.share.zrok.io/images/Home/Home/Group 4.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
+                            <h5 style="color: #646E82;font-size: 15px; ">Total <br>Coaches</h5>
+                            <img src="/coached/Green clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
+                            <p style="margin-top: 20px; " th:text="${coachesSize}">48</p>
+                            <p style="color: #646E82; font-size: 10px;"></p>
+                            <a href="/coached/coachesList"> <button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class= " col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0"
+                     th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+                    <div class="cardi" style="padding: 20px;">
+                        <div class="card-body">
+                            <h5 style="color: #646E82;font-size: 15px; ">Total <br>Coachees</h5>
+                            <img src="/coached/Green clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
+                            <p style="margin-top: 20px; " th:text="${coacheesSize}">48</p>
+                            <p style="color: #646E82; font-size: 10px;"></p>
+                            <a href="/coached/coacheeList"> <button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class= " col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0"
+                     th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+                    <div class="cardi" style="padding: 20px;">
+                        <div class="card-body">
+                            <h5 style="color: #646E82;font-size: 15px; ">Total <br>Organization</h5>
+                            <img src="/coached/Green clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
+                            <p style="margin-top: 20px; " th:text="${organizationSize}">48</p>
+                            <p style="color: #646E82; font-size: 10px;"></p>
+                            <a href="/coached/organizationsList"> <button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0"
+                     th:if="${!#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+                    <div class="cardi" style="padding: 20px;">
+                        <div class="card-body">
+                            <h5 style="color: #646E82; font-size: 15px;">Total Ongoing <br>Bookings</h5>
+                            <img src="/coached/clock.png" alt=""  style="margin-top: 10px;" width="35px" height="35px" >
+                            <p style="margin-top: 20px;" th:text="${ongoingBookingCount}">5</p>
+                            <p style="color: #646E82; font-size: 10px;">Bookings</p>
+                            <a href="/coached/ongoingBookings"><button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0"
+                     th:if="${#strings.equalsIgnoreCase(session.userType,'Organization Admin')}">
+                    <div class="cardi" style="padding: 20px;">
+                        <div class="card-body">
+                            <h5 style="color: #646E82; font-size: 15px;" >Total Onboarded <br>Emloyees</h5>
+                            <img src="/coached/Home/Home/Group 4.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
                             <p style="margin-top: 20px;" th:text="${employees}">48</p>
                             <p style="color: #646E82;font-size: 10px;">Employees</p>
                             <a href="/coached/employees"><button type="button" class="w-100 btn btn-sm " style="background-color: #FEF4F4; color: red;">View Details</button></a>
@@ -55,84 +118,93 @@
 
 
                 <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
-                    <div class="card">
+                    <div class="cardi" style="padding: 20px;">
                         <div class="card-body">
                             <h5 style="color: #646E82; font-size: 15px;">Total Completed <br>Sessions</h5>
-                            <img src="https://justjava2.share.zrok.io/images/tick board.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
+                            <img src="/coached/tick board.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
                             <p  style="margin-top: 20px;" th:text="${completedCount}">6</p>
                             <p style="color: #646E82; font-size: 10px;">Sessions</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
-                    <div class="card">
+                    <div class="cardi" style="padding: 20px;">
                         <div class="card-body">
                             <h5 style="color: #646E82; font-size: 15px;">Total Remaining <br>Sessions</h5>
-                            <img src="https://justjava2.share.zrok.io/images/ba3.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
-                            <p style="margin-top: 20px;">0</p>
+                            <img src="/coached/ba3.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
+                            <p style="margin-top: 20px;" th:text="${remainingSession}">0</p>
                             <p style="color: #646E82; font-size: 10px;">Sessions</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
-                    <div class="card">
+
+
+<!--                <div class="col-xxl-2 col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4 mb-3 mb-sm-0">
+                    <div class="cardi" style="padding: 20px;">
                         <div class="card-body">
                             <h5 style="color: #646E82;font-size: 15px;">Total Completed <br>Sessions</h5>
-                            <img src="https://justjava2.share.zrok.io/images/tick board.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
+                            <img src="/coached/tick board.png" alt=""  style="margin-top: 10px;"width="35px" height="35px" >
                             <p style="margin-top: 20px;">0</p>
                             <p style="color: #646E82;font-size: 10px;">Sessions</p>
                         </div>
                     </div>
-                </div>
+                </div>-->
+
+
             </div>
 
             <div class="row">
 
 
-                <div class="col-xl-8 col-lg-8 col-md-8 col-lg-8 col-sm-8">
-
-
-                    <div class="cardi" style="padding-top: 20px;padding-bottom:auto; padding-left: 10px; ">
-                        <div style="display: flex; justify-content: space-between; padding-right: 10px;"><h2 style="color: #646E82; font-size: 14px; " >Recomended Coaches</h2> <div style="display: flex;gap: 2px;"><img src="https://justjava2.share.zrok.io/images/rod.png" alt="" width="50px" height="2px"> <a href="Coaches.html" style="text-decoration: none; color: #646E82; font-size: 10px;margin-top: -5px;">See all</a></div></div>
+                <div class="col-xl-8 col-lg-8 col-md-12 col-lg-12 col-sm-12">
 
 
 
-
-
-                        <div class="row" style="flex-wrap: nowrap;">
+                    <div class="cardi" style="padding-top: 20px;padding-bottom:auto; padding-left: 10px; "
+                         th:if="${#strings.contains(session.userType,'Organization') ||
+                         #strings.equalsIgnoreCase(session.userType,'Direct Coachee')}">
+                        <div style="display: flex; justify-content: space-between; padding-right: 10px;">
+                            <h2 style="color: #646E82; font-size: 14px; " >Recomended Coaches</h2>
+                            <div style="display: flex;gap: 2px;">
+                                <img src="/coached/rod.png" alt="" width="50px" height="2px">
+                                <a href="/coached/adminCoachList" style="text-decoration: none; color: #646E82; font-size: 10px;margin-top: -5px;">See all</a>
+                            </div>
+                        </div>
+                        <div style="overflow-x: auto;margin: 20px auto;width: 100%;">
+                        <div class="row" style="flex-wrap: nowrap;gap: 10px;">
                             <th:block th:each="coach, i : ${coaches}">
                                         <div class="col">
-                                            <div class="card mb-3" style="height: 170px;">
-                                                <a th:href="'/coached/coaches/'+${coach.id}"  style="text-decoration: none;">
-                                                    <div class="row g-0 container">
 
-                                                        <div class="col-sm-5">
-                                                            <img src="https://justjava2.share.zrok.io/images/standing man.svg" class="img-fluid rounded-start" alt="...">
-                                                        </div>
-                                                        <div class="col-sm-7">
+                                                <a th:href="'/coached/coaches/'+${coach.id}"  style="text-decoration: none;color: black;">
+                                                    <div class="mb-3" style="display: flex;border: 1px solid #cccccc;border-radius: 8px;min-width: 300px;height: 160px">
+
+
+                                                            <img th:src="'/coached/'+${coach.myDisplayPicture}" class="img-fluid rounded-start" alt="...">
+
+                                                        <div style="flex: 1;padding: 10px;">
                                                             <div class="card-body">
-                                                                <h5 class="card-title" th:text="${coach.fullName}">Coach Tommy</h5>
+                                                                <h5 class="card-title" style="color: black" th:text="${coach.fullName}">Coach Tommy</h5>
+                                                                <span style="font-size: 6px;color: red;" th:if="${!coach.diaryFilled}">
+                                                                    Diary Not Yet Filled
+                                                                </span>
 
-
-                                                                <p class="card-text" style="margin-top: -5px; color: #646E82;"><img src="https://justjava2.share.zrok.io/images/Small Clock2.png" alt="" width="10px" height="9px"> Last Actve</p>
-                                                                <p class="card-text" style="margin-top: -15px; font-size: 12px;">24 Jan,2023 @ 9:30 AM</p>
-                                                                <hr style="margin-top: -9px;">
-                                                                <div style="display: flex; justify-content: space-between; font-size: 10px;margin-top: -7px; "><h6 style="font-size: 8px;color: #646E82;" th:text="${coach.experience}" >Experience: 5 Years</h6> <h6 style="font-size: 8px">5.0 <img src="https://justjava2.share.zrok.io/images/Little Star 1.png" alt="" width="10px" height="9px"></h6></div>
-                                                                <p style="font-size: 10px;">
-                                                                    <th:block th:each="interest, i : ${coach.areaOfInterests}">
-                                                                        <span style="font-size: 10px;" th:text="${interest.description}"> Leadership </span> |
+                                                                <p class="card-text" style="color: #646E82;"><img src="/coached/Small Clock2.png" alt="" width="10px" height="9px"> Last Active</p>
+                                                                <p class="card-text" style="margin-top: -15px; font-size: 12px;color: black">24 Jan,2023 @ 9:30 AM</p>
+                                                                <hr style="margin-top: -9px;color: black">
+                                                                <div style="display: flex; justify-content: space-between; font-size: 10px;margin-top: -7px; "><h6 style="font-size: 8px;color: #646E82;" th:text="'Experience: '+${coach.experience}+' Years'" >Experience: 5 Years</h6> <h6 style="font-size: 8px;color: black">5.0 <img src="/coached/Little Star 1.png" alt="" width="10px" height="9px"></h6></div>
+                                                                <p style="font-size: 10px;color: black">
+                                                                    <th:block th:each="focus, i : ${coach.focusArea}">
+                                                                        <span style="font-size: 10px;" th:text="${focus}"> Leadership </span> |
                                                                     </th:block>
                                                                 </p>
                                                             </div>
                                                         </div>
-
-
-
                                     </div>
                                     </a>
-                                </div>
+
                             </div>
                             </th:block>
+                            </div>
                             </div>
 
 
@@ -144,11 +216,11 @@
 
 
 
-<div class="col-xl-4 col-lg-4 col-md-4 col-lg-4 col-sm-4">
-    <div style="background-color: white;padding-top: 10px; padding-left: 20px;padding-right: 10px;" class="card" > <div style="display: flex; justify-content: space-between;">
+<div class="col-xl-4 col-lg-4 col-md-12 col-lg-12 col-sm-12" th:if="${!#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+    <div style="background-color: white;padding-top: 10px; padding-left: 20px;padding-right: 10px;" class="cardi" > <div style="display: flex; justify-content: space-between;">
         <h2 style="color: #646E82; font-size: 14px; " >Recent Invoices </h2>
         <a href="Invoices.html">
-            <img src="https://justjava2.share.zrok.io/images/Goto.png" alt="" width="20px" height="20px">
+            <img src="/coached/Goto.png" alt="" width="20px" height="20px">
         </a>
     </div>
 
@@ -156,7 +228,7 @@
         <div style="display: flex; padding-top: 30px;">
             <div style="display: flex;">
                 <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden;">
-                    <img src="https://justjava2.share.zrok.io/images/Clearer book.png" alt="Profile Picture" style="width: 35px; height: 35px; object-fit: cover;">
+                    <img src="/coached/Clearer book.png" alt="Profile Picture" style="width: 35px; height: 35px; object-fit: cover;">
                 </div>
                 <div style="margin-left: 20px;">
                     <div style="display: flex; justify-content: space-between;">
@@ -165,7 +237,7 @@
                     </div>
                     <div style="display: flex; justify-content: space-between; gap: 15px; margin-top: -20px;">
                         <p style="color: #646E82; font-size: 10px;" th:text="${invoice.getSession().getCoach().fullName}">Coach Albert - 5 Sessions</p>
-                        <p><button style="background-color:#FAFAFA; color: #646E82; width: 70px; border: 2px solid; font-size: 8px;">Expired</button></p>
+                        <p><button style="background-color:#FAFAFA; color: #646E82; width: 70px; border: 2px solid; font-size: 8px;" th:text="${invoice.paid ?'Paid':'Pending'}">Pending</button></p>
                     </div>
                 </div>
             </div>
@@ -181,8 +253,8 @@
 
             </div>
 
-<div class="row">
-    <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+<div class="row" th:if="${!#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+    <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" th:if="${#strings.contains(userType,'Admin')}">
         <div class="cardi" style="padding-top:10px; ;
       padding-left: 10px; padding-right: 10px;"  >
 

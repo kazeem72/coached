@@ -17,13 +17,21 @@ public class Materials {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-
     private String description;
-
-    @Lob
-    @Column(name = "content")
-    private Blob content;
-
+    private String shortDescription;
+    private String focusArea;
+    private String link;
     private String mediaType;
 
+    @Override
+    public String toString() {
+        return "Materials{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", shortDescription='" + shortDescription + '\'' +
+                ", focusArea='" + focusArea + '\'' +
+                ", link='" + link + '\'' +
+                ", mediaType='" + mediaType + '\'' +
+                '}';
+    }
 }

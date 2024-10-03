@@ -10,6 +10,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,15 +29,18 @@ public class Oauth2SecurityConfig {
         log.debug("Configuring security");
 
         http
+                .sessionManagement(httpSecuritySessionManagementConfigurer ->
+                        httpSecuritySessionManagementConfigurer
+                                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .csrf(CsrfConfigurer::disable)
                 .oauth2Login(Customizer.withDefaults())
                 .authorizeHttpRequests(
                         authorize -> authorize
-                                .requestMatchers("/actuator/*")
+                                .requestMatchers("/actuator/*","/websocket," +
+                                        "/websocket/*","/checkoutWebhook")
                                 .permitAll()
                                 .anyRequest()
                                 .authenticated()
-
                 )
 
                 .logout(logout -> logout.logoutSuccessHandler(oidcLogoutSuccessHandler()));
@@ -46,7 +50,7 @@ public class Oauth2SecurityConfig {
     private LogoutSuccessHandler oidcLogoutSuccessHandler() {
         OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler=
                 new OidcClientInitiatedLogoutSuccessHandler(this.clientRegistrationRepository);
-        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}/index.html");
+        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}");
         return oidcLogoutSuccessHandler;
     }
 }

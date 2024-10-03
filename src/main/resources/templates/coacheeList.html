@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout/base_layout}" xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="/coached/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+
+<!-- Modal -->
+
+<div class="header py-0">
+  <div class="header py-0">
+    <div class="px-4 py-0  border-bottom">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+            <img src="images/CoachedLogo.svg" class="bi me-2" width="120" height="120" role="img" aria-label="Bootstrap"/><span style="color: red; font-size: 17px; font-weight:600;">EZ37</span>
+          </a>
+
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+
+
+            <li>
+              <a href="#" class="nav-link text-white">
+                <img src="images/Top Nav/Vector.png" class="bi d-block mx-auto mb-1" width="28" height="28"/>
+
+              </a>
+            </li>
+
+
+            <li>
+              <a href="#" class="nav-link text-white">
+                <div style="display: flex; border-left: 2px solid rgba(0, 0, 0, 0.043);padding-left: 20px; ">
+                  <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden;">
+                    <img src="images/woman pic.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>
+                  <div style="margin-left: 8px;">
+                    <h3 style="font-size: 16px; color: #333;">Adams Wheeler</h3>
+                    <p style="font-size: 10px; color:red; margin-top: -8px;">Admin</p>
+
+                  </div>
+
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar overflow-auto">
+    <div class="d-flex flex-column flex-shrink-0 " style="width: 200px;  ">
+
+      <ul class="nav nav-pills flex-column mb-auto" style="padding-top:30px ; gap: 10px;">
+        <li>
+          <a href="adminOverview.html" class="nav-link link-body-emphasis">
+            <img src="images/mage_dashboard-fill.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="adminCoaches.html" class="nav-link link-body-emphasis">
+            <img src="images/Home/Vector.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Coaches</span>
+          </a>
+        </li>
+        <li class="nav-item"  >
+          <a href="#" class="nav-link active" aria-current="page">
+            <img src= "images/fluent_laptop-person-24-filled-red.png"  alt="" height="16px" width="16px" style="margin-left: 41px;">
+            <span style="padding-left: 13px; color: red;">Coachees</span>
+          </a>
+        </li>
+        <li>
+          <a href="organisations.html" class="nav-link link-body-emphasis">
+            <img src="images/clarity_organization-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Organisation</span>
+          </a>
+        </li>
+        <li>
+          <a href="adminInvoice.html" class="nav-link link-body-emphasis">
+            <img src="images/Home/basil_invoice-solid.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Invoices</span>
+          </a>
+        </li>
+        <li>
+          <a href="adminResources.html" class="nav-link link-body-emphasis">
+            <img src="images/resources.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Resources</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="adminSessionHistory.html" class="nav-link link-body-emphasis">
+            <img src="images/Home/tabler_history.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+            <span style="padding-left: 13px;">Session History</span>
+          </a>
+        </li>
+
+      </ul>
+
+      <div class="dropdown" style="padding-top:74px ;">
+        <a href="#" class="d-flex align-items-center link-body-emphasis text-decoration-none ">
+          <img src="https://justjava2.share.zrok.io/images/Home/Vector@2x.png"  alt="" height="16px" width="16px" style="margin-left: 45px;">
+          <span style="padding-left: 13px;">Log out</span>
+        </a>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <section layout:fragment="content">
+
+    <th:block th:each="coachee , i : ${coachees}">
+
+    <div class="modal fade" th:id="'exampleModal'+${i.index}"
+         tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <!-- modal body -->
+          <div class="modal-body">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div style="padding: 25px;height: 100%; width: 100%;">
+              <h2 style="font-size: 15px; font-weight:500;">Basic Detals</h2>
+              <hr style="margin-top: -7px;">
+              <div style="display: flex; gap: 20px;">
+                <div><img th:src="@{'/'+${coachee.myPicture}}" alt=""></div>
+                <div style="margin-top: 30px;">
+                  <h3 style="font-weight: 500;font-size: 13px;" th:text="${coachee.fullName}">Ogundipe Damilola</h3>
+                  <p style="font-size: 10px;font-weight:400;color: #646E82;margin-top: -5px;"
+                     th:text="${coachee.myOrganization}">UI/UX Designer @ Just Java Limited
+                  </p>
+                  <p style="font-size: 10px;font-weight:400;margin-top: -10px; color: #646E82;"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="" viewBox="0 0 16 20" style="color: red;">
+                    <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                  </svg>  08053357556</p>
+                  <p style="font-size: 10px;font-weight:400;margin-top: -10px; color: #646E82;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="" viewBox="0 0 16 20" style="color: red;">
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+                  </svg>  <span th:text="${coachee.email}">akinrindeakinkunmi@gmail.com</span></p>
+                </div>
+              </div>
+              <p style="font-size: 15px; font-weight:500;margin-top: 10px;">Focus Areas</p>
+              <hr style="margin-top: -18px;">
+              <p style="font-size: 8px; color: black;border-left: 1px solid red;padding-left: 3px;">Ledership | Communication | <br> Business | Health | Development </p>
+            </div>
+          </div>
+          <!-- end of modal body -->
+
+        </div>
+      </div>
+    </div>
+    </th:block>
+
+
+
+    <h6  style="font-size: 17px; color: #000 ;font-family: sans-serif; font-weight: 700;">Coachees</h6>
+    <p style="font-size: 10px; color: #646E82;;">View and manage all individual coachees on Coach-ed </p>
+    <div class="cardi" style="padding: 20px;">
+      <div style="overflow-x: auto; margin: 20px auto; width: 100%;">
+
+
+        <table class="table" style="width: 100%; border: 1px solid #ccc; border-collapse: collapse;">
+          <thead>
+          <tr  style="font-size: 11px; text-wrap:nowrap;text-align: center;">
+            <th scope="col">Name</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Date Registered</th>
+            <th scope="col">Action</th>
+
+          </tr>
+          </thead>
+          <tbody >
+          <tr th:each="coachee , i : ${coachees}">
+            <td style="font-size: 9px;text-align: center;" th:text="${coachee.fullName}">Damilola Ogundipe</td>
+            <td style="font-size: 9px;text-align: center;">08053357556</td>
+            <td style="font-size: 9px;text-align: center;" th:text="${coachee.email}">akinrindeakinkunmi@gmail.com</td>
+            <td style="font-size: 9px;text-align: center;" th:text="${coachee.organization.name}">Just Java Limited</td>
+            <td style="font-size: 9px;text-align: center;">April 23, 2024</td>
+            <td style="font-size: 9px;text-align: center;">
+              <a data-bs-toggle="modal" th:data-bs-target="'#exampleModal'+${i.index}"
+                 href="" style="color: red;">
+                View Details
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<!-- Code injected by live-server -->
+<script>
+  // <![CDATA[  <-- For SVG support
+  if ('WebSocket' in window) {
+    (function () {
+      function refreshCSS() {
+        var sheets = [].slice.call(document.getElementsByTagName("link"));
+        var head = document.getElementsByTagName("head")[0];
+        for (var i = 0; i < sheets.length; ++i) {
+          var elem = sheets[i];
+          var parent = elem.parentElement || head;
+          parent.removeChild(elem);
+          var rel = elem.rel;
+          if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+          }
+          parent.appendChild(elem);
+        }
+      }
+      var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+      var address = protocol + window.location.host + window.location.pathname + '/ws';
+      var socket = new WebSocket(address);
+      socket.onmessage = function (msg) {
+        if (msg.data == 'reload') window.location.reload();
+        else if (msg.data == 'refreshcss') refreshCSS();
+      };
+      if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+        console.log('Live reload enabled.');
+        sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+      }
+    })();
+  }
+  else {
+    console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+  }
+  // ]]>
+</script>
+</body>
+</html>
+
+
+
+
