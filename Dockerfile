@@ -1,12 +1,11 @@
 # Importing JDK and copying required files
-#FROM openjdk:21-jdk AS build
-#WORKDIR /coached
-#COPY pom.xml .
-#COPY src src
-
-# Copy Maven wrapper
-COPY mvnw .
+FROM openjdk:21-jdk AS build
+WORKDIR /coached
+COPY pom.xml .
+COPY src src
 COPY .mvn .mvn
+# Copy Maven wrapper
+
 
 # Set execution permission for the Maven wrapper
 RUN chmod +x ./mvnw
