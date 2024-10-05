@@ -1,8 +1,8 @@
 # Importing JDK and copying required files
-FROM openjdk:21-jdk AS build
-WORKDIR /coached
-COPY pom.xml .
-COPY src src
+#FROM openjdk:21-jdk AS build
+#WORKDIR /coached
+#COPY pom.xml .
+#COPY src src
 
 # Copy Maven wrapper
 COPY mvnw .
