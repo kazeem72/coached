@@ -66,11 +66,11 @@
             <version>${version.connectors}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>com.acheron.camunda.connectors</groupId>
             <artifactId>mongodb-connector</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
 <!--        <dependency>
             <groupId>ch.brix.camunda.connector</groupId>
             <artifactId>mail-thymeleaf-connector</artifactId>
