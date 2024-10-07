@@ -2,12 +2,15 @@ name: build-coached
 on: [push]
 
 jobs:
-  run-shell-commands:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: echo a string
-        run: echo "Hello There"
-      - name: multiline Command
-        run: |
-          node -v
-          npm -v
+      - name: Checkout the repository
+        uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v1
+        with:
+          java-version: '21'
+          cache: maven
+      - name: Build jar
+        run: mvn --batch-mode package
