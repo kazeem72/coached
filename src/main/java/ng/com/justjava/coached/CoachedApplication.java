@@ -2,7 +2,7 @@ package ng.com.justjava.coached;
 
 
 import feign.form.spring.SpringFormEncoder;
-import io.camunda.zeebe.spring.client.EnableZeebeClient;
+//import io.camunda.zeebe.spring.client.EnableZeebeClient;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.server.adapter.ForwardedHeaderTransformer;
 
 @SpringBootApplication//(scanBasePackages={"ng.com.justjava","ch.brix.camunda.connector.mailThymeleaf"})
-@EnableZeebeClient
+//@EnableZeebeClient
 @EnableFeignClients
 //@EnableDiscoveryClient
 //@Deployment(resources = "classpath:coached-bpmn.bpmn")

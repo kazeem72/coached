@@ -54,7 +54,7 @@
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>io.camunda.spring</groupId>
             <artifactId>spring-boot-starter-camunda</artifactId>
             <version>${version.connectors}</version>
@@ -65,7 +65,7 @@
             <artifactId>spring-boot-starter-camunda-connectors</artifactId>
             <version>${version.connectors}</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
 <!--        <dependency>
             <groupId>com.acheron.camunda.connectors</groupId>
             <artifactId>mongodb-connector</artifactId>
@@ -162,6 +162,25 @@
                     <compilerArgs>
                         <arg>-parameters</arg>
                     </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin><!-- https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
+                    <groupId>com.google.cloud.tools</groupId>
+                    <artifactId>jib-maven-plugin</artifactId>
+                    <version>3.4.3</version>
+                <configuration>
+                    <from>
+                        <image>alpine/java:21-jdk</image>
+                    </from>
+                    <to>
+                        <image>kazeemakinrinde/coached</image>
+                    </to>
+                    <container>
+                        <ports>
+                            <port>8080</port>
+                        </ports>
+                        <format>OCI</format>
+                    </container>
                 </configuration>
             </plugin>
         </plugins>

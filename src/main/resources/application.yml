@@ -1,37 +1,37 @@
-camunda:
-  client:
-    mode: oidc
-    tenant-ids:
-      - <default>
-    auth:
-      oidc-type: keycloak
-      issuer: http://localhost:18080/auth/realms/camunda-platform
-      client-id: camunda-identity
-      client-secret: q2TzW5zxznCUBMkz66O0fSKWHcelUM4f
-      password: demo
-      username: demo
-    zeebe:
-      enabled: true
-      base-url: http://localhost:8088
-      gateway-url: http://localhost:26500
-      audience: zeebe-api
-      prefer-rest-over-grpc: false
-    operate:
-      enabled: true
-      base-url: http://localhost:8081
-      audience: operate-api
-    tasklist:
-      enabled: true
-      base-url: http://localhost:8082
-      audience: tasklist-api
-    optimize:
-      enabled: true
-      base-url: http://localhost:8083
-      audience: optimize-api
-    identity:
-      enabled: true
-      base-url: http://localhost:8084
-      audience: identity-api
+#camunda:
+#  client:
+#    mode: oidc
+#    tenant-ids:
+#      - <default>
+#    auth:
+#      oidc-type: keycloak
+#      issuer: http://localhost:18080/auth/realms/camunda-platform
+#      client-id: camunda-identity
+#      client-secret: q2TzW5zxznCUBMkz66O0fSKWHcelUM4f
+#      password: demo
+#      username: demo
+#    zeebe:
+#      enabled: true
+#      base-url: http://localhost:8088
+#      gateway-url: http://localhost:26500
+#      audience: zeebe-api
+#      prefer-rest-over-grpc: false
+#    operate:
+#      enabled: true
+#      base-url: http://localhost:8081
+#      audience: operate-api
+#    tasklist:
+#      enabled: true
+#      base-url: http://localhost:8082
+#      audience: tasklist-api
+#    optimize:
+#      enabled: true
+#      base-url: http://localhost:8083
+#      audience: optimize-api
+#    identity:
+#      enabled: true
+#      base-url: http://localhost:8084
+#      audience: identity-api
 
 spring:
   thymeleaf.cache: false
