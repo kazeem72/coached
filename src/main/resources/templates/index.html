@@ -160,14 +160,14 @@
 
 
 
-                    <div class="cardi" style="padding-top: 20px;padding-bottom:auto; padding-left: 10px; "
+                    <div class="cardi" style="padding-top: 20px;padding-bottom:auto; padding-left: 10px;height: fit-content "
                          th:if="${#strings.contains(session.userType,'Organization') ||
                          #strings.equalsIgnoreCase(session.userType,'Direct Coachee')}">
                         <div style="display: flex; justify-content: space-between; padding-right: 10px;">
                             <h2 style="color: #646E82; font-size: 14px; " >Recomended Coaches</h2>
                             <div style="display: flex;gap: 2px;">
                                 <img src="/coached/rod.png" alt="" width="50px" height="2px">
-                                <a href="/coached/adminCoachList" style="text-decoration: none; color: #646E82; font-size: 10px;margin-top: -5px;">See all</a>
+                                <a href="/coached/adminCoachList" style="text-decoration: none; color: #646E82; font-size: 10px;margin-top: -5px;">  See all</a>
                             </div>
                         </div>
                         <div style="overflow-x: auto;margin: 20px auto;width: 100%;">
@@ -217,41 +217,25 @@
 
 
 <div class="col-xl-4 col-lg-4 col-md-12 col-lg-12 col-sm-12" th:if="${!#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
-    <div style="background-color: white;padding-top: 10px; padding-left: 20px;padding-right: 10px;" class="cardi" > <div style="display: flex; justify-content: space-between;">
-        <h2 style="color: #646E82; font-size: 14px; " >Recent Invoices </h2>
-        <a href="Invoices.html">
-            <img src="/coached/Goto.png" alt="" width="20px" height="20px">
-        </a>
-    </div>
-
-        <th:block th:each="invoice, i : ${invoices}">
-        <div style="display: flex; padding-top: 30px;">
-            <div style="display: flex;">
-                <div style="width: 60px; height: 60px; border-radius: 50%; overflow: hidden;">
-                    <img src="/coached/Clearer book.png" alt="Profile Picture" style="width: 35px; height: 35px; object-fit: cover;">
-                </div>
-                <div style="margin-left: 20px;">
+    <div style="background-color: white;padding-top: 10px; padding-left: 20px;padding-right: 10px;" class="cardi" > <div style="display: flex; justify-content: space-between;"> <h2 style="color: #646E82; font-size: 14px; " >Recent Invoices </h2> <a href="Invoices.html"><img src= "/coached/Goto.png" alt="" width="20px" height="20px"></a></div>
+        <ul class="list-group list-group-flush" style="margin-top: 30px;">
+            <th:block th:each="invoice, i : ${invoices}">
+                <li class="list-group-item">
                     <div style="display: flex; justify-content: space-between;">
-                        <p style="font-weight: 600; font-size: 10px;" th:text="${invoice.getInvoiceID()}">Invoice #45667 I CFD</p>
-                        <p style="font-size: 10px;">19hrs ago</p>
+                        <div><img src="/coached/Clearer book.png" alt="Profile Picture" style="width: 35px; height: 35px; object-fit: cover;"></div>
+                        <div> <p style="font-weight: 600; font-size: 10px; color: #000;" th:text="${invoice.getInvoiceID()}">Invoice #45667 I CFD <br>
+                            <span style="color: #646E82; font-size: 10px;" th:text="${invoice.getSession().getCoach().fullName}">Coach Albert - 5 Sessions</span> </p></div>
+                        <div><p style="font-size: 10px;color: #000;"><span style="font-size: 10px; padding-left: 15px;">19hrs ago</span> <br>
+                            <button style="background-color:#FAFAFA; color: #646E82; width: 70px; border: 2px solid; font-size: 8px;" th:text="${invoice.paid ?'Paid':'Pending'}">Expired</button></p></div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; gap: 15px; margin-top: -20px;">
-                        <p style="color: #646E82; font-size: 10px;" th:text="${invoice.getSession().getCoach().fullName}">Coach Albert - 5 Sessions</p>
-                        <p><button style="background-color:#FAFAFA; color: #646E82; width: 70px; border: 2px solid; font-size: 8px;" th:text="${invoice.paid ?'Paid':'Pending'}">Pending</button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </th:block>
+                </li>
+            </th:block>
 
-
-        <hr style="margin-top: -5px; margin-right: 10px; color: rgba(128, 128, 128, 0.829);">
-
+        </ul>
     </div>
 
 </div>
 
-            </div>
 
 <div class="row" th:if="${!#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
     <div class=" col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" th:if="${#strings.contains(userType,'Admin')}">
