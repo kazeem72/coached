@@ -81,7 +81,7 @@ public class BookingController {
                                  OAuth2AuthenticationToken oAuth2AuthenticationToken,
                                  @ModelAttribute BookingDTO bookingDTO, Model model){
 
-        String nextPage = "bookingPreview";
+        String nextPage = "/bookingPreview";
         String email = (String) oAuth2AuthenticationToken.getPrincipal().getAttributes().get("email");
 
         if(bookingDTO.getCoachId()!=null) {
@@ -110,6 +110,8 @@ public class BookingController {
             request.getSession().setAttribute("booking",bookingDTO);
 
         }
+
+        System.out.println(" bookingDTO======="+bookingDTO);
         model.addAttribute("bookingPreview", bookingDTO);
         return nextPage;
     }
@@ -136,6 +138,8 @@ public class BookingController {
         session.setSessionStatus(SessionStatus.INITIATE);
         session.setManyToOne("Group".equalsIgnoreCase(bookingDTO.getMeetingType()));
         session.setCoach(coach);
+        session.setCaseNote(bookingDTO.getCaseNote());
+        session.setProposedStartDate(bookingDTO.getProposedStartDate());
         session.setFrequency(bookingDTO.getFrequency());
         Agreement coachAgreement = new Agreement();
         coachAgreement.setDescription(" The Agreement for Coach "+coach.getFullName());

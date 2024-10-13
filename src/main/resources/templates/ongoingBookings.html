@@ -24,6 +24,17 @@
               $('#bookModal').modal("show");
             });
           });
+
+          $('.modal_linksm').on('click',function(event){
+              event.preventDefault();
+              let link = this.href;
+
+              //alert(' The link here =='+link);
+
+              $('.modal-content').load(link,function(){
+                  $('#msbookModal').modal("show");
+              });
+          });
     });
   </script>
 </head>
@@ -119,7 +130,7 @@
           <span style="font-size: 8px; color: #646E82;" >of</span>
           <span style="font-size: 8px; color: #646E82;" th:text="${ongoingBooking.totalCoachees}">16</span>
           <span style="font-size: 8px; color: #646E82;">filled assesment form</span>
-          <a class="modal_link"
+          <a class="modal_linksm"
              th:href="@{'/coacheeAssessmentList/'+${ongoingBooking.id}}"
              style="color: red; font-size: 10px;">View Detais</a>
         </h6>

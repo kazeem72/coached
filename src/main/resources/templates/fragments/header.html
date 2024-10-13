@@ -55,9 +55,12 @@
         <img class="notification-icon" src="/coached/bell.svg" alt="" s>
         <div class="profile">
             <div class="line">
+
                 <img th:src="@{'/'+${session.myPicture}}"
-                     th:alt="'Profile Picture'" style="width: 100%; height: 100%; object-fit: cover;">
+                     th:alt="'Profile Picture'" style="width: 40px; height: 40px; border-radius: 50%;">
+
             </div>
+
             <div style="padding-top: 10px;">
                 <h4 class="profile-name" style="padding-top: 10px;" th:text="${#authentication.principal.attributes['name']}">John Doe</h4><br>
                 <p class="" style="font-size: 10px; color:red; margin-top: -30px;" th:text="${session.userType}">Admin</p>
@@ -66,7 +69,7 @@
                 <img src="/coached/stolen.svg"  alt="" style="width: 12px;height: 12px;margin-left: 10px;">
                 <div class="dropdown">
                     <ul>
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="/coached/logout">Logout</a></li>
                     </ul>
                 </div>
             </div>

@@ -30,6 +30,8 @@ public class Session {
     @Column(name = "session_status")
     private SessionStatus sessionStatus;
 
+    private String caseNote;
+    private LocalDate proposedStartDate;
     @ManyToOne
     @JoinColumn(name = "coach_id")
     private Coach coach;

@@ -19,6 +19,9 @@ public class BookingDTO {
     String meetingType;
     Integer frequency;
 
+    String caseNote;
+    LocalDate proposedStartDate;
+
     Integer preview=0;
 
     LocalDate expiryDate;
@@ -26,5 +29,19 @@ public class BookingDTO {
 
     public String getDisplay(){
         return meetingType;//("Group".equalsIgnoreCase(meetingType)?"One To One":"One to Many");
+    }
+
+    @Override
+    public String toString() {
+        return "BookingDTO{" +
+                "coachId=" + coachId +
+                ", meetingType='" + meetingType + '\'' +
+                ", frequency=" + frequency +
+                ", caseNote='" + caseNote + '\'' +
+                ", proposedStartDate=" + proposedStartDate +
+                ", preview=" + preview +
+                ", expiryDate=" + expiryDate +
+                ", employeeList=" + employeeList +
+                '}';
     }
 }

@@ -13,10 +13,10 @@
       $(document).ready(function() {
       $('#employeeForm').submit(function(event) {
         event.preventDefault();
-
+        $('#addEmployee').prop('disabled', true)
         $('#addEmployee').css('backgroundColor','#ED1B244D')
-        $('#addEmployee').css('cursor','progress')
-        $('#addEmployee').removeAttr('form')
+        $('#addEmployee').css('cursor','default')
+
         var $form = $(this);
         var $target = $($form.attr('data-target'));
 
@@ -28,7 +28,7 @@
           data: $form.serialize(),
           success: function(response) {
 
-            //alert(" Response Here=="+response);
+            alert(" Response Here==");
             window.open('/coached/employees');
           },
           error: function(error) {

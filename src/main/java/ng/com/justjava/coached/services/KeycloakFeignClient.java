@@ -14,17 +14,17 @@ import java.util.Map;
 
 //{{keycloak_url}}/admin/realms/{{realm}}/users
 //http://localhost/oauth2/realms/master/protocol/openid-connect/token
-@FeignClient(name="KeycloakFeignClient",url="https://justjavaouath2.share.zrok.io")
+@FeignClient(name="KeycloakFeignClient",url="https://45306ec7-2747-46cd-b78e-a00a7c6d8bb2.app.skycloak.io")
 public interface KeycloakFeignClient {
 
-    @PostMapping(path = "/oauth2/realms/master/protocol/openid-connect/token",
+    @PostMapping(path = "/realms/master/protocol/openid-connect/token",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
     Map getAdminAccessToken(Map<String,?> paramMap);
 
-    @GetMapping("/oauth2/admin/realms/justjavaRealm/users")
+    @GetMapping("/admin/realms/justjavaRealm/users")
     public List<User> getUsers(@RequestHeader(value = "Authorization", required = true) String authorizationHeader);
 
-    @PostMapping("/oauth2/admin/realms/justjavaRealm/users")
+    @PostMapping("/admin/realms/justjavaRealm/users")
     public User createUser(@RequestHeader(value = "Authorization", required = true)
                                      String authorizationHeader, User user);
 

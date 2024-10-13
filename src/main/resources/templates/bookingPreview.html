@@ -12,6 +12,14 @@
     <script th:inline="javascript">
         $(document).ready(function() {
             $('#bookConfirm').on('click',function(){
+                $('#bookConfirm').prop('disabled',true)
+                $('#bookConfirm').html(`
+                <div class="d-flex justify-content-center">
+                     <div class="spinner-border spinner-border-sm "  role="status">
+                            <span class="visually-hidden">Loading...</span>
+                     </div>
+                </div>
+                `)
                 $('.modal-body').load('/coached/bookSession',function(){
                     $('#confirm-modal').modal("show");
                 });
@@ -54,6 +62,16 @@
                 <h2 style="font-size: 12px; color: red; font-weight: 500;">Session Frequency</h2>
                 <p style="font-size: 12px; color: black;" th:text="${bookingPreview.frequency}">12 <span style="color: #646E82;">sessions</span></p>
             </div>
+            <div class="col-6">
+                <h2 style="font-size: 12px; color: red; font-weight: 500;">Expected Start Date</h2>
+                <p style="font-size: 12px; color: black;" th:text="${bookingPreview.proposedStartDate}">10/12/24</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2 style="font-size: 12px; color: red; font-weight: 500;">Case Note</h2>
+                <p style="font-size: 12px; color: black;" th:utext="${bookingPreview.caseNote}"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing . </p>
+            </div>
         </div>
         <div class="row" style="--bs-gutter-x: 2.5rem">
             <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12">
@@ -78,6 +96,7 @@
                     </li>
 
                 </ul>
+
             </div>
             <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-12 col-sm-12">
                 <h2 style="font-size: 12px; color: red; font-weight: 500;">Session Expiry Date</h2>

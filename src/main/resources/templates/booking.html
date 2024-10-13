@@ -5,17 +5,32 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <link href="https://fonts.googleapis.com/css?family=Urbanist" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/richtext/font-awesome-4.7.0/css/font-awesome.min.css}" />
+    <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}">
+    <script th:src="@{/richtext/jquery.richtext.min.js}"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script th:inline="javascript">
 
         $(document).ready(function() {
+            $('#caseNote').richText();
+
             $('#previewForm').submit(function(event) {
                 event.preventDefault();
+                $('#Preview').prop('disabled',true)
+                $('#Preview').html(`
+                <div class="d-flex justify-content-center">
+                     <div class="spinner-border spinner-border-sm "  role="status">
+                            <span class="visually-hidden">Loading...</span>
+                     </div>
+                </div>
+                `)
+
 
                 var $form = $(this);
                 var $target = $($form.attr('data-target'));
+
 
                 $.ajax({
                     url: $form.attr('action'),
@@ -24,6 +39,8 @@
                     success: function(response) {
                         $('#bookingFooter').hide();
                         $target.html(response);
+                        $('#Preview').prop('disabled',false)
+                        $('#Preview').html('Continue')
                     },
                     error: function(error) {
                         // Handle the error
@@ -50,7 +67,7 @@
             <input id="address-${x.id}" type="hidden" name="employeeList" value=" ">
         </li>`
             );
-            $('#address-' + x.id).val($("#l" + x.id + " .email").text());
+            $('#address-' + x.id).val($("#l" + x.id + " .email").html());
             console.log('#edit-' + x.id)
             console.log($('#address-' + x.id).val());
             $("#coachAdded").text(++number);
@@ -78,7 +95,7 @@
             <input id="address-${element.id}" type="hidden" name="email" value="">
         </li>`
                 )
-                $('#address').val($("#l"+element.id+ " .email").text())
+                $('#address').val($("#l"+element.id+ " .email").html())
                 console.log(element.id)
                 console.log( $('#address').val())
                 $("#coachAdded").text(++number)
@@ -121,17 +138,18 @@
                 <p style="color: red; font-size: 11px;">All Sessions expires on August 31, 2024</p>
                 <input th:field="${booking.coachId}" type="hidden"  class="form-control" />
             </div>
+            <div class="col-12 col-sm-6">
+                <h4 style="font-size: 12px; color: #646E82; font-weight: 500;">3. Expected Start Date</h4>
+                <input class="form-control" type="date" th:field="${booking.proposedStartDate}"/>
+            </div>
         </div>
         <hr>
         <div class="row" style="--bs-gutter-y: 1rem;--bs-gutter-x: 1rem" >
-            <div class="col-12 col-sm-6">
-                <h4 style="font-size: 12px; color: #646E82; font-weight: 500;">3. Case Note</h4>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="font-size: 14px; background-color: #FAFAFA;"></textarea>
+            <div class="col-12 ">
+                <h4 style="font-size: 12px; color: #646E82; font-weight: 500;">4. Case Note</h4>
+                <textarea th:field="${booking.caseNote}" class="form-control" rows="3"></textarea>
             </div>
-            <div class="col-12 col-sm-6">
-                <h4 style="font-size: 12px; color: #646E82; font-weight: 500;">4. Expected Start Date</h4>
-                <input class="form-control" type="date" name="" id="">
-            </div>
+
         </div>
         <hr>
         <div class="row" style="--bs-gutter-y: 1rem;--bs-gutter-x: 1rem" th:if="${coachee.admin}">
@@ -140,8 +158,6 @@
                 <p style="font-size: 9px;">Add coachees from Onboarded Employees</p>
                 <input style="font-size: 12px;" class="form-control" id="myInput" type="text" placeholder="Search..">
                 <br>
-
-
 
                 <ul class="list-group" id="myList" th:each="employee,iter : ${employees}">
 

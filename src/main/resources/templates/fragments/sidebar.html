@@ -120,6 +120,18 @@
           <span style="padding-left: 13px;"><i class="bi bi-chat-right-dots" style="margin-left: 16px;margin-right: 16px"></i> Chats</span>
         </a>
       </li>
+      <li th:if="${#strings.equalsIgnoreCase(session.userType,'EZ37 Admin')}">
+        <a href="/coached/agreement" class="nav-link link-body-emphasis">
+          <span style="padding-left: 13px;"><i class="bi bi-collection" style="margin-left: 16px;margin-right: 16px">
+          </i>Compose Agreement</span>
+        </a>
+      </li>
+      <li style="margin-top: 70px;">
+        <a href="/coached/logout" class="nav-link link-body-emphasis">
+          <img src="/coached/Home/Vector@2x.png"  alt="" height="16px" width="16px" style="margin-left: 27px;">
+          <span style="padding-left: 13px;">Log out</span>
+        </a>
+      </li>
     </ul>
 
     <div class="dropdown" style="padding-top:80px ;">

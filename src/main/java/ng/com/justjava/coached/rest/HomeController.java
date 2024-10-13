@@ -2,10 +2,8 @@ package ng.com.justjava.coached.rest;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import ng.com.justjava.coached.entity.*;
 import ng.com.justjava.coached.services.KeycloakService;
-import ng.com.justjava.coached.util.PdfGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,9 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.context.Context;
 
-import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Controller
@@ -45,6 +42,8 @@ public class HomeController {
     SystemParametersRepository systemParametersRepository;
 
 
+    @Autowired
+    DocumentRepository documentRepository;
     @GetMapping({"/","/coached"})
     public String index(OAuth2AuthenticationToken oAuth2AuthenticationToken,
             HttpServletRequest request, Model model){
@@ -59,7 +58,7 @@ public class HomeController {
 
         System.out.println(" The Focus Area==="+systemParameters.getFocusAreas());
 
-        request.getSession(true).setAttribute("firstTime",false);
+        //request.getSession(true).setAttribute("firstTime",false);
         request.getSession(true).setAttribute("systemParameters",systemParameters);
 
 /*
@@ -183,7 +182,7 @@ public class HomeController {
 
         System.out.println(" The person just logged in now has user type=="+userType);
 
-        request.getSession(true).setAttribute("userType",userType);
+        //request.getSession(true).setAttribute("userType",userType);
         request.getSession(true).setAttribute("myPicture",myPicture);
         request.getSession(true).setAttribute("parameters",systemParameters.getParameters());
 
@@ -283,13 +282,15 @@ public class HomeController {
         System.out.println(" The Keyword sent here==="+keyword);
 
         Optional<Coachee> optionalCoachee=coacheeRepository.findByEmail(email);
+        System.out.println("0 Keycloak users ==== "+optionalCoachee);
         if(optionalCoachee.isPresent() && optionalCoachee.get().getOrganization()!=null){
             model.addAttribute("organization",optionalCoachee.get().getOrganization());
             List<Coachee> coachees=optionalCoachee.get().getOrganization().getCoachees();
-            if(keyword!=null)
+            if(keyword!=null) {
                 coachees = coachees.stream().filter(coachee -> coachee.getFullName().toLowerCase().contains(keyword.toLowerCase())
-                    ||coachee.getEmail().contains(keyword)).collect(Collectors.toList());
-
+                        || coachee.getEmail().contains(keyword)).collect(Collectors.toList());
+            }
+            System.out.println(" The total coachees=="+coachees.size());
             model.addAttribute("employees",coachees);
         }
 
@@ -297,7 +298,7 @@ public class HomeController {
 
         //List<User> users = keycloakService.getUsers();
 
-        //System.out.println(" Keycloak users ==== "+users);
+        System.out.println("1 Keycloak users ==== "+optionalCoachee);
         model.addAttribute("name",
                 oAuth2AuthenticationToken.getPrincipal().getAttributes().get("name"));
         return "/employees";
@@ -495,12 +496,17 @@ public class HomeController {
     public String coachingAgreement(OAuth2AuthenticationToken oAuth2AuthenticationToken,
                                     @PathVariable Long sessionId, Model model){
 
+        AtomicReference<Document> document = new AtomicReference<>(new Document());
+        documentRepository.findBySubject("Agreement")
+                .ifPresent(document1 -> document.set(document1));
+
         String name = (String) oAuth2AuthenticationToken.getPrincipal().getAttributes().get("name");
         Session session = sessionRepository.findById(sessionId).get();
 
         System.out.println(" Loading agreement for ==="+session.getSessionOwner());
         model.addAttribute("name",name);
         model.addAttribute("coachingSession",session);
+        model.addAttribute("document",document.get());
         model.addAttribute("name",name);
         return "/coachingAgreement";
     }
@@ -525,7 +531,7 @@ public class HomeController {
 
         model.addAttribute("coachingSession",session);
         model.addAttribute("name",name);
-        return "/coachingAgreement";
+        return "redirect:/ongoingBookings";
     }
     @GetMapping("/coacheeAssessmentList/{sessionId}")
     public String coacheeAssesmentList(OAuth2AuthenticationToken oAuth2AuthenticationToken,

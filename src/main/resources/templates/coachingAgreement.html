@@ -32,7 +32,7 @@
   <div style="padding: 30px;font-family: 'Urbanist';height: 100%; width: 100%;">
     <div style="display:flex;justify-content: space-between; margin-bottom: 20px;">
       <div style="font-weight: 600;font-size: 20px;">Coaching Agreement</div>
-      <div><img src="https://justjava2.share.zrok.io/images/CoachedLogo.svg" class="bi me-2" width="90"  role="img" aria-label="Bootstrap"/></div>
+      <div><img src="/coached/CoachedLogo.svg" class="bi me-2" width="90"  role="img" aria-label="Bootstrap"/></div>
     </div>
     <h6 style="font-weight: 500;font-size: 15px;">This agreement is between:
       <ol style="margin-top: 20px;" >
@@ -41,41 +41,13 @@
       </ol>
     </h6>
 
-    <p style="font-weight: 500;font-size: 15px;color: #646E82;">This agreement is sectioned into six (Section A - Section F) and you are advised to read it carefully before you agree</p>
-    <h5 style="color: red;font-weight: 600;font-size: 15px;">A. The Coaching Goals</h5>
-    <p style="font-size: 15px; font-weight: 500; color: #646E82;">The goals of the program are:
-    <ul style="font-size: 13px; color: #646E82;">
-      <li style="margin-bottom: 5px;">Communication</li>
-      <li style="margin-bottom: 5px;">Stakeholder Engagement</li>
-      <li>Influencing</li>
-    </ul>
-    </p>
+    <div id="agreementContent" th:utext="${document.documentContent}">
+    </div>
 
-    <h5 style="color: red;font-weight: 600;font-size: 15px;">B. Coaching Details</h5>
-    <p style="font-size: 15px; font-weight: 500; color: #646E82;">There will be a total of twelve (12) coaching sessions, with a mid-session check-in after the sixth session, involving your sponsor. The coaching sessions will occur twice a month. The first coaching session, including a discussion about your leadership foundation form, will last up to 90 minutes. Subsequent sessions will have a duration of 60 minutes each.</p>
-    <h5 style="color: red;font-weight: 600;font-size: 15px;">C. Expectations</h5>
-    <p style="font-size: 13px; font-weight: 500; color: #646E82;"><span style="color: black;font-weight: 600;font-size: 13px;">Coaching Schedule:</span> The agreed time will be determined by both parties (the Coach and the Coachee) before the meeting. Rescheduling by either party can be done within a 12-hour notice. Coaching sessions already scheduled but not honoured by the Coachee, at least 15 minutes after the agreed start time, shall be counted as valid for payment as long as the Coach was available and was not informed of the need to reschedule as per terms of this agreement.</p>
-    <p style="font-size: 13px; font-weight: 500; color: #646E82;"><span style="color: black;font-weight: 600;font-size: 13px;">Session Details:</span>  The coach will, during the course of the Program, share the following documents with the Coachees, which the Coachees are expected to fill and send back as appropriate. The documents are:
-    <ul style="font-size: 13px; font-weight: 500;color: #646E82;">
-      <li style="margin-bottom: 5px;"><span style="color: black; font-weight: 600;font-size: 13px;">Foundation Document:</span> The Coachees are expected to complete this before the commencement of the coaching sessions</li>
-      <li style="margin-bottom: 5px;"><span style="color: black; font-weight: 600;font-size: 13px;"> Learning Journal:</span> The Coachees are expected to complete this after every session </li>
-      <li> <span style="color: black; font-weight: 600;font-size: 13px;">Coaching Call Prep Form:</span> This is expected to be completed by the coachees and sent to the coach at least 24 hours before each session</li>
-    </ul>
-    </p>
-    <h5 style="color: red;font-weight: 600;font-size: 15px;">D. The Coaching Institution’s Responsibility
-      <ol style="font-size: 13px; font-weight: 500;color: #646E82;margin-top: 20px;">
-        <li style="margin-bottom: 5px;">The Coach and the Coachees recognize that the purpose of the coaching relationship and the process is for the Coach to support the exploration of the Coachees’ goals and create change based on the Coachees’ choice.</li>
-        <li style="margin-bottom: 5px;">Adaora Ayoade is bound by the International Coaching Federation (ICF) Code of Ethics, and all information generated during the process will be confidential.</li>
-        <li style="margin-bottom: 5px;">The Coach is not a Mentor, Consultant, or Counsellor and does not give legal, financial advice or other advice. Coach and Coachees agree that the Coach may share examples for perspective, and the Coachees makes all choices and decisions for themselves  In areas not covered by the coaching relationship, the Coachees are advised to seek other professional advice or assistance as they may deem appropriate.</li>
-        <li>The Coachees will take relevant notes and work on agreed action points to create personal change and self-improvement in reaching the Coachees’ goals.</li>
-      </ol>
-    </h5>
-    <h5 style="color: red;font-weight: 600;font-size: 15px;">E. Termination</h5>
-    <p style="font-size: 13px; font-weight: 500; color: #646E82;">All parties acknowledge that they are free to formally stop the coaching engagement at any time by notifying by email in writing at least 48 hours before the next scheduled session. <br>
-      In the event of Termination, ONLY completed sessions will be paid for. The Coaching Institution shall make a refund of unused payment to the Sponsor if need be.</p>
-    <h5 style="color: red;font-weight: 600;font-size: 15px;">F. Binding Effect</h5>
-    <p style="font-size: 13px; font-weight: 500; color: #646E82;">This agreement shall be binding upon all parties hereto</p>
-    <p style="font-size: 15px; font-weight: 500; color: red;">Note that by clicking on the “I Agree” button below means that you agree to the terms and conditions of the coaching agreement</p>
+
+
+
+
   </div>
 </div>
 <div class="modal-footer">

@@ -33,6 +33,21 @@
           $('#bookModal').modal("show");
         });
       });
+      var words = $('#biography').text()
+      console.log(words.length)
+
+      if(words.length > 150){
+        var shortenedWords = words.substr(0, 150)
+        $('#biography').text(shortenedWords).append('<span onclick= "more()" style=" font-size:10px; color:red;cursor: pointer;">...Show more</span>')
+      }
+
+      function more() {
+        $('#biography').text(words).append('<span onclick="less()" style=" font-size:10px; color:red;cursor: pointer;">Show less</span>')
+      }
+      function less(){
+        var shortenedWords = words.substr(0, 150)
+        $('#biography').text(shortenedWords).append('<span onclick="more()" style=" font-size:10px; color:red;cursor: pointer;">...Show more</span>')
+      }
     });
   </script>
 </head>
@@ -100,13 +115,10 @@
               </div>
             </div>
             <hr>
-            <input id="ch" type="checkbox">
+
             <h2 style="font-size: 15px;color: black; font-weight: 700;">Biography</h2>
-            <p style="font-size: 10px; color: #666;" th:text="${coach.biography}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem eveniet architecto nulla, earum, sint quae soluta nisi praesentium ad illum libero optio totam facere asperiores et quibusdam provident in dignissimos Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni obcaecati omnis quibusdam earum iure itaque voluptatibus distinctio, officia vero, impedit error. Consequuntur recusandae neque nesciunt deleniti? Aliquid, consequatur dolores quas quibusdam perferendis ducimus, iure earum dignissimos asperiores, pariatur esse unde sed vel doloribus delectus cumque in magnam reprehenderit atque dicta sapiente voluptatibus amet? Perferendis eaque minima dolor labore quaerat recusandae! Esse dolores similique sequi reiciendis nemo dignissimos maiores officia numquam vel nostrum quasi iure perspiciatis a quam necessitatibus id commodi possimus quae laborum blanditiis odio, porro facere quia! Tenetur, quam explicabo! Deserunt non placeat expedita omnis, voluptates dicta ducimus sint.  </p>
-            <div class="more">
-              <p style="font-size: 10px; color: #666;margin-top: -10px;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem iure distinctio quam, debitis culpa dignissimos, eligendi a et quo atque consectetur delectus ad! Nobis accusamus laboriosam, fuga cupiditate est esse? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident, consequatur praesentium dolore aut voluptate fuga eum? Qui libero asperiores quos repellat optio, id quibusdam incidunt accusantium totam repudiandae sint tenetur.<label for="ch" style="color: red;cursor: pointer;">Show Less</label></p>
-            </div>
-            <label for="ch" class="" style="margin-top: -10px;font-size: 10px; color: red;cursor: pointer;">Show More</label>
+            <p style="font-size: 10px; color: #666;" id="biography" th:text="${coach.biography}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem eveniet architecto nulla, earum, sint quae soluta nisi praesentium ad illum libero optio totam facere asperiores et quibusdam provident in dignissimos Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni obcaecati omnis quibusdam earum iure itaque voluptatibus distinctio, officia vero, impedit error. Consequuntur recusandae neque nesciunt deleniti? Aliquid, consequatur dolores quas quibusdam perferendis ducimus, iure earum dignissimos asperiores, pariatur esse unde sed vel doloribus delectus cumque in magnam reprehenderit atque dicta sapiente voluptatibus amet? Perferendis eaque minima dolor labore quaerat recusandae! Esse dolores similique sequi reiciendis nemo dignissimos maiores officia numquam vel nostrum quasi iure perspiciatis a quam necessitatibus id commodi possimus quae laborum blanditiis odio, porro facere quia! Tenetur, quam explicabo! Deserunt non placeat expedita omnis, voluptates dicta ducimus sint.  </p>
+
             <hr>
             <h2 style="font-size: 15px;color: black; font-weight: 700;">
               <img src="/coached/certificate.png" alt="" height="16px" width="15px"> Coaching Certifications</h2>

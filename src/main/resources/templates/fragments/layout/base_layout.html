@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<div class="modal" id="bookModal" tabindex="-1" >
+<div class="modal" id="bookModal" tabindex="0">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-body">
@@ -33,6 +33,38 @@
   </div>
 
 </div>
+
+<div class="modal" id="smbookModal" tabindex="0">
+  <div class="modal-dialog modal-sm modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body">
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="ogbookModal" tabindex="0">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="msbookModal" tabindex="0">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-body">
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 <div th:replace="~{/fragments/header :: header(${userType})}"> </div>
 <div th:replace="~{/fragments/sidebar :: sidebar(${userType})}"> </div>

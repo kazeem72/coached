@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/fragments/layout/base_layout}" xmlns="http://www.w3.org/1999/html">
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Urbanist" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/richtext/font-awesome-4.7.0/css/font-awesome.min.css}" />
+  <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}">
+  <script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script th:inline="javascript">
+
+    $(document).ready(function() {
+      $('#documentContent').richText();
+    });
+  </script>
+</head>
+<body>
+
+<div class="content">
+  <section layout:fragment="content">
+  <h6  style="font-size: 17px; color: #000 ;font-family: sans-serif; font-weight: 700;">Coaching agreement</h6>
+  <div class="cardi" style="padding: 10px;">
+    <form method="post" th:action="@{/agreement}" th:object="${document}" >
+      <input type="hidden" th:field="${document.id}">
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label th:for="header"style="font-size: 14px; font-weight: 600;">Header</label>
+            <input style="font-size: 14px;" type="text" class="form-control"
+                   th:field="${document.header}" required>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label th:for="subject"style="font-size: 14px; font-weight: 600;">Subject</label>
+            <input style="font-size: 14px;" type="text" class="form-control"
+                   th:field="${document.subject}" required>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px; ">
+        <div class="col-12">
+          <div class="form-group">
+            <label style="font-size: 14px; font-weight: 600;" th:for="documentContent">Content</label>
+            <textarea class="form-control" th:field="${document.documentContent}"  required></textarea >
+          </div>
+        </div>
+        <input type="submit" value="Submit" style="border: none; padding: 10px; background-color: red; color: white; border-radius: 7px;margin-top: 10px;font-size: 14px; font-weight: 500;">
+      </div>
+    </form>
+  </div>
+  </section>
+</div>
+
+
+<!-- Code injected by live-server -->
+<script>
+  // <![CDATA[  <-- For SVG support
+  if ('WebSocket' in window) {
+    (function () {
+      function refreshCSS() {
+        var sheets = [].slice.call(document.getElementsByTagName("link"));
+        var head = document.getElementsByTagName("head")[0];
+        for (var i = 0; i < sheets.length; ++i) {
+          var elem = sheets[i];
+          var parent = elem.parentElement || head;
+          parent.removeChild(elem);
+          var rel = elem.rel;
+          if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+          }
+          parent.appendChild(elem);
+        }
+      }
+      var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+      var address = protocol + window.location.host + window.location.pathname + '/ws';
+      var socket = new WebSocket(address);
+      socket.onmessage = function (msg) {
+        if (msg.data == 'reload') window.location.reload();
+        else if (msg.data == 'refreshcss') refreshCSS();
+      };
+      if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+        console.log('Live reload enabled.');
+        sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+      }
+    })();
+  }
+  else {
+    console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+  }
+  // ]]>
+</script>
+</body>
+</html>

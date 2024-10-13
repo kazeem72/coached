@@ -66,7 +66,7 @@ public class KeycloakService {
 
             accessToken = "Bearer " + tokens.get("access_token");
         //}
-        System.out.println(" The pulled out access token ==="+ accessToken);
+        System.out.println(" The pulled out access token ==="+ accessToken + " and user==="+user);
 
         try {
              User user1 = keycloakFeignClient.createUser(accessToken, user);
