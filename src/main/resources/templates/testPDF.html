@@ -1,10 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Urbanist" rel="stylesheet"/>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
 </head>
 <body>
+    <div style="padding: 25px;height: 100%; width: 100%;">
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <h6 style="font-size: 15px; color: black;font-weight: 600;">Invoice <button style="border: none; font-size: 9px; color:orange;background-color: rgb(232, 232, 207); border-radius: 10px; width: 76px; height: 23px;">Pending</button></h6>
+            </div>
+            <div>
+                <img src="/coached/CoachedLogo.svg" alt="" height="20px"/>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+            <div>
+                <h6 style="font-size: 12px; color: #646E82; font-weight: 600;" th:text="'Invoice Number '+${invoiceSession.invoice.displayNumber}">Invoice Number <span style="color: black; font-size: 12px;margin-left: 30px;">#45667</span></h6>
+                <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Date Issued <span style="color: black; font-size: 12px;margin-left: 30px;" th:text="${invoiceSession.invoice.issueDate}">June 4, 2024</span></h6>
+                <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Due Date <span style="color: black; font-size: 12px;margin-left: 30px;" th:text="${invoiceSession.invoice.dueDate}">June 4, 2026</span></h6>
 
+            </div>
+            <div>
+                <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Billed To</h6>
+                <p style="font-size: 11px;color: black;font-weight: 600;"
+                   th:text="${invoiceSession.invoice.issueTo}">Ogundipe Damilola</p>
+            </div>
+        </div>
+        <hr/>
+        <div style="display: flex; justify-content: space-between;">
+            <div>
+                <p style="color: black; font-size: 12px; font-weight: 500;">Coach</p>
+                <div style="display: flex; gap: 37px; flex-wrap: wrap;">
+                    <div style="margin-top: 10px;">
+                        <h2 style="font-size: 15px; color:black;font-weight: 400;" th:text="${invoiceSession.coach.fullName}">Tommy Oliver</h2>
+                        <p style="font-size: 8px; color:#000;" th:text="${invoiceSession.coach.experience} +' Years Experience'">10 Years Experience <br>5.0</p>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <h2 style="font-size: 10px;color: black; font-weight: 700;">Focus Areas</h2>
+                        <p style="font-size: 8px;
+              padding-left: 3px;">
+                <span style="font-size: 8px;
+              padding-left: 3px;" th:each="focus : ${invoiceSession.coach.focusArea}">|
+                <span style="font-size: 8px; color: black;border-left: 1px solid red;
+              padding-left: 3px;" th:text="${focus}"></span>
+                </span>
+                        </p>
+                    </div>
+                </div>
+                <hr/>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <h1 style="color: black; font-size: 12px; font-weight: 500;">Meeting Type</h1>
+                        <p style="font-size: 10px; font-weight: 400;" th:text="${invoiceSession.manyToOne}?'Many to One':'One to Many'">One to One (<span style="font-size: 10px;font-weight: 400;color: #646E82;">45 minutes/session</span>)</p>
+                    </div>
+                    <div>
+                        <h1 style="color: black; font-size: 12px; font-weight: 500;" >Session Frequency</h1>
+                        <p style="font-size: 10px; font-weight: 400;"th:text="${invoiceSession.frequency}" >12 <span style="font-size: 10px;font-weight: 400;color: #646E82;"> Sessions</span></p>
+                    </div>
+                    <div>
+                        <h1 style="color: black; font-size: 12px; font-weight: 500;">Session Expiry Date</h1>
+                        <p style="font-size: 10px; font-weight: 400;">August 31, 2025</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p style="color: black; font-size: 12px; font-weight: 500;">Payment</p>
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item"></li>
+                    <li class="list-group-item"><div style="display: flex; justify-content: space-between;">
+                        <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">
+                            Sub total
+                        </h6>
+                        <h6 style="color: black; font-size: 12px;margin-left: 30px;" th:text="'NGN '+${invoiceSession.invoice.amountDue}">
+                            NGN 20,000
+                        </h6>
+                    </div></li>
+                    <li class="list-group-item"><div style="display: flex; justify-content: space-between;">
+                        <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Tax (0% on NGN 20,000) </h6><h6 style="color: black; font-size: 12px;margin-left: 30px;">NGN 0</h6>
+                    </div></li>
+                    <li class="list-group-item"><div style="display: flex; justify-content: space-between;">
+                        <h6 style="font-size: 12px; color: #646E82; font-weight: 600;">Amount Due </h6><h6 style="color: red; font-size: 12px;margin-left: 30px;" th:text="'NGN '+${invoiceSession.invoice.amountDue}">NGN 20,000</h6>
+                    </div></li>
+                    <li class="list-group-item"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

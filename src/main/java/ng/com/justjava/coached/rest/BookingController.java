@@ -104,9 +104,11 @@ public class BookingController {
             if(loginCoachee.getAdmin())
                 coachees.addAll(coacheeRepository.findByEmailIn(bookingDTO.getEmployeeList()));
             else coachees.add(loginCoachee);
+
             model.addAttribute("princi", "demo");
             model.addAttribute("coach", coach);
             model.addAttribute("employees", coachees);
+            model.addAttribute("hideContinue", false);
             request.getSession().setAttribute("booking",bookingDTO);
 
         }

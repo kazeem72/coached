@@ -110,7 +110,8 @@
 <!-- end of modal body -->
 <div class="modal-footer">
     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 142px; height: 36px; border-radius: 5px; background-color: white;color: red; font-weight: 500; font-size: 12px;border: 1px solid #666; " >Back</button>
-    <button id="bookConfirm" type="button" class="btn" style="width: 142px; height: 36px; border-radius: 5px; background-color: red;color: white; font-weight: 500; font-size: 12px;">Continue</button>
+    <button id="bookConfirm" type="button" class="btn" style="width: 142px; height: 36px; border-radius: 5px; background-color: red;color: white; font-weight: 500; font-size: 12px;"
+    th:if="${!hideContinue}">Continue</button>
 </div>
 
 <script src="main.js"></script>

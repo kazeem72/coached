@@ -29,7 +29,6 @@
               event.preventDefault();
               let link = this.href;
 
-              //alert(' The link here =='+link);
 
               $('.modal-content').load(link,function(){
                   $('#msbookModal').modal("show");
@@ -92,6 +91,13 @@
           <div style="font-size: 10px; color: #646E82;"><img src="/coached/mdi_calendar-outline.png" alt="" height="10px" width="10px" th:text="${ongoingBooking.frequency} + ' Sessions'"></div>
         </div>
         <p style="font-size: 8px; color:darkblue; font-weight: 100;">All sessions expires on August 20, 2026</p>
+          <p>
+              <a class="modal_link" id="sessionPreview"
+                 style="font-size: 10px; color: red;"
+                 th:href="@{'/sessionDetail/' + ${ongoingBooking.id}}">
+                  <span style="font-size: 10px; color: red;">View Session Details</span>
+              </a>
+          </p>
         <hr style="margin-top: -10px;">
 
 
