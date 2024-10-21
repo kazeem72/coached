@@ -65,5 +65,5 @@ spring:
             client-id: coached
             client-secret: w7iZInFrt4Lz1tQTu3LALvTnaBSpLugS
             authorization-grant-type: authorization_code
-            scope: openid,profile,email, phone
+            scope: openid,profile,email,phone,orgName,userType
             # redirect-uri: https://justjavacoached.share.zrok.io/coached/login/oauth2/code/keycloak-oid
