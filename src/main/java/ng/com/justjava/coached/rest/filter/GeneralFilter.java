@@ -74,14 +74,17 @@ public class GeneralFilter extends OncePerRequestFilter {
         if(request.getSession().getAttribute("myPicture")==null)
             if("coachee".equalsIgnoreCase(userType) || "Organization Admin".equalsIgnoreCase(userType)) {
                 optionalCoachee = coacheeRepository.findByEmail(email);
-                myPicture = !StringUtils.isEmpty(optionalCoachee.get().getMyPicture())
-                        ?optionalCoachee.get().getMyPicture():myPicture;
+                if(optionalCoachee.isPresent()) {
+                    myPicture = !StringUtils.isEmpty(optionalCoachee.get().getMyPicture())
+                            ? optionalCoachee.get().getMyPicture() : myPicture;
+                }
             }
         if("coach".equalsIgnoreCase(userType)){
             optionalCoach =  coachRepository.findByEmail(email);
-            myPicture = !StringUtils.isEmpty(optionalCoach.get().getMyPicture())
-                    ?optionalCoach.get().getMyPicture():myPicture;
-
+            if(optionalCoach.isPresent()) {
+                myPicture = !StringUtils.isEmpty(optionalCoach.get().getMyPicture())
+                        ? optionalCoach.get().getMyPicture() : myPicture;
+            }
         }
         request.getSession(true).setAttribute("myPicture",myPicture);
         request.getSession(true).setAttribute("parameters",systemParameters.getParameters());
